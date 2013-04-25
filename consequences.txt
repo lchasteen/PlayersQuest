@@ -1,0 +1,24 @@
+1;You are attacked by bandits from the Nothern Province. You loose your next turn.;404
+1;You are robbed at night and loose 100 gold coins.;200
+1;You are robbed at night and loose 10 gold coins.;110
+1;You are robbed at night and loose 20 gold coins.;120
+1;You are attacked by Omegloids. You are hurt and must heal yourself.;204
+1;You are attacked by looters and loose 15 gold coins.;115
+1;You are attacked by looters and loose 5 gold coins.;105
+1;You are attacked by looters. You must replenish your supplies at the next city.;403
+1;You are attacked by Omegloids. You are hurt and must heal yourself.;202
+1;You are wounded and must heal yourself. You loose your next turn.;404
+2;You are attacked by a sea monster and you are wounded.;210
+2;You ship is damaged in a terrible storm. You must stop for repairs. You loose 20 gold coins.;120
+2;Your ship is raided by pirates. You loose two men.;302
+2;Your ship is attacked by the Red Pirates of the Great Green Sea. You are wounded.;202
+2;Your ship is stuck in the dolldrums. You loose your next turn.;404
+2;A terrible storm damages your ship. You must stop for repairs. You loose your next turn.;404
+2;A giant squid attacks your ship. You loose four men.;304
+3;You are attacked by the Black Bog Monster. You loose four men.;304
+3;Your men are attacked by evil trees. You loose two mighty warriors.;302
+3;You are clawed by a Giant Flying Secreete, and you must rest to regain your strength. You loose your next turn.;404
+3;You are attacked by twin giants who kill two of your mighty warriors.;302
+3;Your men get trapped in the Marsh of Doom. You loose your next turn.;404
+3;Your guide is kidnapped. You must pay his ransome for 10 gold coins.;110
+3;You are attacked at night and beaten by an ogre.;210

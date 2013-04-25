@@ -1,0 +1,19 @@
+1;What is one plus one?;2
+1;What is 5 plus 7?;12
+1;What year did Hitler Invade Poland?;1939
+1;What year did Christopher Columbus set sail from Spain to Discover America?;1492
+1;Did Hitler Invade Poland?;Y
+1;Was Hitler cruel?;Y
+1;What is the capital of Georgia?;Atlanta
+1;How many times did John deny that he knew Jesus?;3
+2;What is 56 + 32?;88
+2;What is the capital of Italy?;Rome
+2;Where did the Wright Brothers peform the first powered flight[City, State]?;Kittyhawk, NC
+2;What is the name of the name of the first president of the United States?;George Washington
+2;When did the United States Civil War begin and end[yyyy-yyyy]?;1861-1865
+3;What was Abraham Lincolyn's nickname as a boy?;Honest Abe
+3;What did Samuel Morris create?;Morris Code
+3;What is 182 - 57?;125
+3;What is 5 X 5?;25
+3;How many books are in the Old Testament?;39
+3;How many books are in the New Testament?;27
