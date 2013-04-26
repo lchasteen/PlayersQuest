@@ -183,14 +183,41 @@ public class Player{
     
     
     private String getProperName(String name){        
-        String temp, tot;
-        name = name.trim();
+        
+        String stringSplitUp[], totalString = null;
+        // Regex strip everthing exept leters and spaces.
+        name = name.replaceAll("[^A-Za-z ]","_").trim();
+        
         if(name != null && !name.isEmpty() && name.length()> 1 ){            
-            temp = name.substring(1,name.length()).toLowerCase();
-            tot = name.substring(0,1).toUpperCase() + temp;
-            return tot;
+            stringSplitUp = name.split(" ");
+            if(stringSplitUp != null && stringSplitUp.length >= 1){
+                
+                for(int i = 0; i < stringSplitUp.length; i++){
+                    // Make the string lower case all except for the first letter
+                    if(stringSplitUp[i].length() >= 1){
+                        String restOfSubString = stringSplitUp[i].substring(1,stringSplitUp[i].length()).toLowerCase();
+                        String capFirstLetterThenRest = stringSplitUp[i].substring(0,1).toUpperCase() + restOfSubString;
+                        // Add everthing together
+                        if(totalString != null){
+                            totalString = totalString + " " + capFirstLetterThenRest;                            
+                        }else{
+                            totalString = capFirstLetterThenRest;
+                        }
+
+                    }else{
+                        if(totalString != null){
+                            // Make upper case first letter then combine the rest of the string.                        
+                            totalString = totalString + " " + stringSplitUp[i].substring(0,1).toUpperCase();
+                        }else{
+                            totalString = stringSplitUp[i].substring(0,1).toUpperCase();
+                        }//if(totalString != null){
+                    }//if(stringSplitUp[i].length() >= 1){
+                    
+                }//for(int i = 0; i < stringSplitUp.length; i++){
+            }//if(stringSplitUp != null && stringSplitUp.length >= 1){
+            return totalString.trim();
         }
-        return "Donkey";
+        return "Diaper Baby";
     }
 
    
