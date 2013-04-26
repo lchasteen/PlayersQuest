@@ -191,7 +191,7 @@ public class Player{
         if(name != null && !name.isEmpty() && name.length()> 1 ){            
             stringSplitUp = name.split(" ");
             if(stringSplitUp != null && stringSplitUp.length >= 1){
-                
+                // For each String array element make the first letter upper then the rest lower.
                 for(int i = 0; i < stringSplitUp.length; i++){
                     // Make the string lower case all except for the first letter
                     if(stringSplitUp[i].length() >= 1){
@@ -202,7 +202,7 @@ public class Player{
                             totalString = totalString + " " + capFirstLetterThenRest;                            
                         }else{
                             totalString = capFirstLetterThenRest;
-                        }
+                        }//if(totalString != null){
 
                     }else{
                         if(totalString != null){
