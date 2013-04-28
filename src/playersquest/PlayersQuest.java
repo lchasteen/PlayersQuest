@@ -174,8 +174,7 @@ public class PlayersQuest {
                     String ans = inStream.readLine();                    
                     if(ans.equalsIgnoreCase("end")){                        
                         break;
-                    }
-                    System.out.println(ans);
+                    }                    
                     pc.addNewPlayer(ans, 10, playerType);
                     numOfPlayers++;
                     playerType++;
@@ -215,11 +214,13 @@ public class PlayersQuest {
                                 //ans = inStream.readLine();
                             }                    
                             pc.getPlayer(playerTracker).setResponse(ans);
+                            
+                            if(!pc.getPlayer(playerTracker).getNextQuestion()){
+                               break;
+                            }//if(!pc.getPlayer(playerTracker).getNextQuestion()){
                         }//if(!pc.getPlayer(playerTracker).skipTurn()){
 
-                        if(!pc.getPlayer(playerTracker).getNextQuestion()){
-                            break;
-                        }
+                        
 
                         playerTracker++;
                     }catch(Exception e){                   

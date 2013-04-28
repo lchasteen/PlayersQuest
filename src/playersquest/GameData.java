@@ -19,6 +19,13 @@ public class GameData extends SimpleFile{
     private int arrayListTracker = 0;
     private int arrayValueTracker = 0;
     
+    
+    /**
+     *
+     * @param fileName
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public GameData (String fileName) throws FileNotFoundException, IOException{
         super(fileName);     
         this.getListOfData();
@@ -65,20 +72,49 @@ public class GameData extends SimpleFile{
         }//if(maxArrayValue > 0){
     }    
     
-    /*
-     * This method gets the specified consequence based on the location in the game.
-     */
+    
     public String getNextRandomGameData(int locationInGame) throws IndexOutOfBoundsException {        
         int random, lngValue;
         Random rg = new Random();
-        lngValue = locationInGame -1; 
-        if(!listOfData.isEmpty() && listOfData.size() > 0 && lngValue >= 0 && lngValue <= listOfData.size()){
+        
+        if(!listOfData.isEmpty() && listOfData.size() > 0 && locationInGame > 0 && locationInGame <= listOfData.size()){
+            lngValue = locationInGame -1; 
             random =  rg.nextInt(listOfData.get(lngValue).size());
             return listOfData.get(lngValue).get(random);       
+        }
+        return null;
+    }
+
+    
+    /*
+     * This method gets the specified consequence based on the location in the game.
+     */
+    /**
+     *
+     * @param locationInGame
+     * @param dataPosition
+     * @return
+     * @throws IndexOutOfBoundsException
+     */
+    public String getGameData(int locationInGame, int dataPosition) throws IndexOutOfBoundsException {                
+        
+        if(!listOfData.isEmpty() && listOfData.size() > 0 
+           && locationInGame > 0 && locationInGame <= listOfData.size()
+           && dataPosition > 0 && dataPosition <= listOfData.get(locationInGame).size()){
+            
+            int tempArrayNum = locationInGame -1; 
+            int tempDataPos = dataPosition -1;
+            
+            return listOfData.get(tempArrayNum).get(tempDataPos);       
         }        
         return null;      
     }
     
+    /**
+     *
+     * @return
+     * @throws IndexOutOfBoundsException
+     */
     public String getNextGameData()throws IndexOutOfBoundsException{
         String strRet;        
         
@@ -106,6 +142,10 @@ public class GameData extends SimpleFile{
         return strRet;      
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean hasNext(){
         if(this.arrayListTracker >= (listOfData.size()) || (this.arrayValueTracker >= listOfData.get(arrayListTracker).size())){
             return false;
@@ -114,10 +154,12 @@ public class GameData extends SimpleFile{
     }
     
     
+    
     /*
      * This method gets the prefix value from the String "consequence" passed in 
      * the argument seperated by the ";" character.
      *
+     * @param consequence
      */
     private int getPrefixValue(String consequence){
         String strArray[];
@@ -138,7 +180,8 @@ public class GameData extends SimpleFile{
     /*
      * This method gets the prefix value from the String "strValue" passed in 
      * the argument seperated by the ";" character.
-     *
+     * 
+     * @param strValue      
      */
     private int getSuffixValue(String strValue){
         String strArray[];
@@ -153,6 +196,15 @@ public class GameData extends SimpleFile{
             }//if(strArray != null && strArray.length > 1){
         }//if(strValue != null && !strValue.isEmpty()){        
         return -1;
+    }
+    
+    
+    public int getDataSize(int locationInGame){
+        if(!listOfData.isEmpty() && listOfData.size() > 0 && locationInGame > 0 && locationInGame <= listOfData.size()){            
+            int tempPosition = locationInGame - 1;
+            return listOfData.get(tempPosition).size();
+        }
+        return 0;
     }
     
 }

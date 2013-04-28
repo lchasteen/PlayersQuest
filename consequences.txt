@@ -21,4 +21,4 @@
 3;You are attacked by twin giants who kill two of your mighty warriors.;302
 3;Your men get trapped in the Marsh of Doom. You loose your next turn.;404
 3;Your guide is kidnapped. You must pay his ransome for 10 gold coins.;110
-3;You are attacked at night and beaten by an ogre.;210
+3;You are attacked at night and beaten by an ogre. You loose some of your health!;210

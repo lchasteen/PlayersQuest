@@ -6,6 +6,7 @@ package playersquest;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
@@ -18,9 +19,11 @@ public class Question extends GameData{
     private String thisAnswer;
     private String thisPosition;
     private String thisConsequence;
-    private int thisConsequenceValue;
+    private int thisConsequenceValue;    
     private GameData cons;
-    
+    private ArrayList<Integer>dontAskTheseAgain;   
+    private int questionNumber = 0;
+
 
     /**
      *
@@ -28,7 +31,26 @@ public class Question extends GameData{
      */
     public Question(String questionFileName, String consequenceFileName) throws FileNotFoundException, IOException {
         super(questionFileName);
-        cons = new GameData(consequenceFileName);                
+        cons = new GameData(consequenceFileName);
+        dontAskTheseAgain = new ArrayList<Integer>();
+    }
+    
+    public boolean getNextRandomQuestion(int positionInGame){
+        
+        if(positionInGame < 1){
+            return false;
+        }//if(positionInGame < 1){
+        
+        return true;
+    }
+    
+    /**
+     * This method returns the data number associated with the data.
+     * 
+     * @return integer
+     */
+    public int getQuestionNumber(){
+        return this.questionNumber;
     }
     
     public boolean getNextQuestion()throws IndexOutOfBoundsException, Exception{
@@ -54,11 +76,11 @@ public class Question extends GameData{
             thisPosition = getOnlyQuestion[0].trim();
             thisQuestion = getOnlyQuestion[1].trim();
             thisAnswer = getOnlyQuestion[2].trim();
+            this.questionNumber++;
             if(!getConsequenceForQuestion(getPosition())){
                 throw new Exception("Method:= getNextQuestion, error getting consequence! POS:=" + this.thisPosition);
             }
-        }//if(getOnlyQuestion != null && getOnlyQuestion.length > 2)        
-        
+        }//if(getOnlyQuestion != null && getOnlyQuestion.length > 2)                
         return true;        
     }
     
@@ -104,6 +126,8 @@ public class Question extends GameData{
     public boolean compareAnswer(String answer){        
         if(answer != null && !answer.isEmpty() && thisAnswer != null && !thisAnswer.isEmpty()){            
             if(thisAnswer.equalsIgnoreCase(answer)){
+                dontAskTheseAgain.add(new Integer(this.getQuestionNumber()));
+                System.out.println(this.dontAskTheseAgain.toString());
                 return true;
             }//if(thisAnswer.equalsIgnoreCase(answer)){            
         }//if(answer != null && !answer.isEmpty() && thisAnswer != null && !thisAnswer.isEmpty()){                        
