@@ -72,6 +72,9 @@ public class GameData extends SimpleFile{
         }//if(maxArrayValue > 0){
     }    
     
+    public String getNextRandomGameData()throws IndexOutOfBoundsException{
+        return this.getNextRandomGameData(this.arrayListTracker + 1);
+    }
     
     public String getNextRandomGameData(int locationInGame) throws IndexOutOfBoundsException {        
         int random, lngValue;
@@ -197,7 +200,7 @@ public class GameData extends SimpleFile{
         }//if(strValue != null && !strValue.isEmpty()){        
         return -1;
     }
-    
+   
     
     public int getDataSize(int locationInGame){
         if(!listOfData.isEmpty() && listOfData.size() > 0 && locationInGame > 0 && locationInGame <= listOfData.size()){            
@@ -205,6 +208,32 @@ public class GameData extends SimpleFile{
             return listOfData.get(tempPosition).size();
         }
         return 0;
+    }
+    
+    
+    public int getDataArraySize(){
+        if(listOfData != null && !listOfData.isEmpty()){
+            return listOfData.size();
+        }
+        return 0;
+    }
+    
+    public int getLocationInGame(){
+        return this.arrayListTracker;
+    }
+    
+    
+    public boolean addToLocationInGame(){
+        if(arrayListTracker >= listOfData.size() ){
+            return false;
+        }else{
+            arrayListTracker++;
+            return true;
+        }
+    }
+    
+    public int getLocationInData(){
+        return this.arrayValueTracker;
     }
     
 }
