@@ -113,6 +113,13 @@ public class Player {
         boolean res = thisQuestion.getNextQuestion();
         return res;
     }
+    
+    
+    public boolean getNextRandomQuestion() throws IndexOutOfBoundsException, Exception {
+        boolean res = thisQuestion.getNextQuestion();
+        return res;
+    }
+
 
     /*
      public boolean getQuestion(){
