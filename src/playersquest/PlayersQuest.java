@@ -11,6 +11,9 @@ import java.io.Console;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
@@ -148,6 +151,26 @@ public class PlayersQuest {
             PlayersQuest pc;
             QuestHandler qh;
             qh = new QuestHandler();            
+            
+            //JLC 8.30.2013 SQLite
+            Connection c = null;
+            Statement s = null;
+            
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            s = c.createStatement();
+             String sql = "CREATE TABLE COMPANY " +
+                   "(ID INT PRIMARY KEY     NOT NULL," +
+                   " NAME           TEXT    NOT NULL, " + 
+                   " AGE            INT     NOT NULL, " + 
+                   " ADDRESS        CHAR(50), " + 
+                   " SALARY         REAL)"; 
+              s.executeUpdate(sql);
+              s.close();
+              c.close();
+              
+              
+            /*
             inStream = new BufferedReader(new InputStreamReader(System.in));
             //Scanner inStream = new Scanner(System.in);
             //String  ans;            
@@ -159,7 +182,7 @@ public class PlayersQuest {
             int playerTracker = 1;
             
             pc = new PlayersQuest(qh);
-            
+            */
             System.out.println("**************************************************************");
             System.out.println( "                  PLAYERS QUEST");
             System.out.println("**************************************************************");
@@ -167,7 +190,7 @@ public class PlayersQuest {
             System.out.println("this quest. If you survive, then you will join the proud");
             System.out.println("few that have finished this quest and lived to tell the tale!\n");
             
-            
+           /* 
             while(true){
                 try{
                     System.out.print("Enter you name or end to finish:");
@@ -229,8 +252,10 @@ public class PlayersQuest {
                        break;
                     }//catch                    
                 }// while
+                
             }
             inStream.close();
+            */ 
             /*
             System.out.println(pc.getNextConsequence(1));
             System.out.println(pc.getNextConsequence(1));
@@ -242,9 +267,11 @@ public class PlayersQuest {
             System.out.println(pc.getNextConsequence(3));
             System.out.println(pc.getNextConsequence(3));
             */
-            pc.endGame();
-        }catch (Exception e){
+            //pc.endGame();
             
+        }catch (Exception e){
+           System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0); 
         }
         
     }
