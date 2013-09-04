@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package playersquest;
+package impl;
 
 import eventhandler.QuestListener;
 import java.io.FileNotFoundException;
@@ -12,13 +12,13 @@ import java.io.IOException;
  *
  * @author lchastee
  */
-public class Player {
+public class QuestPlayerImpl {
 
     private String name, characterName;
     // resources = the men or other    
     private int age, amountOfGold, resources, health;
     private boolean skipPlayersTurn = false;
-    private Question thisQuestion;
+    private QuestionImpl thisQuestion;
     private QuestListener listener;
 
     /**
@@ -32,7 +32,7 @@ public class Player {
      * @throws IOException
      * @throws Exception
      */
-    public Player(String name, int age, int playerType, String questionFileName, String consequenceFileName) throws FileNotFoundException, IOException, Exception {
+    public QuestPlayerImpl(String name, int age, int playerType, String questionFileName, String consequenceFileName) throws FileNotFoundException, IOException, Exception {
         if (name != null && !name.isEmpty()
                 && age > 0 && age <= 120
                 && questionFileName != null && !questionFileName.isEmpty()
@@ -45,7 +45,7 @@ public class Player {
             this.health = 100;
             this.amountOfGold = 1000;
             this.resources = 60;
-            this.thisQuestion = new Question(questionFileName, consequenceFileName);
+            this.thisQuestion = new QuestionImpl(questionFileName, consequenceFileName);
             switch (playerType) {
                 case 1:
                     characterName = "Knight " + this.name;

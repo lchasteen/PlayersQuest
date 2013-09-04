@@ -2,18 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package playersquest;
+package impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import playersquest.GameData;
 
 
 /**
  *
  * @author Lane
  */
-public class Question extends GameData{
+public class QuestionImpl extends GameData{
     
     private String thisQuestion;
     private String thisAnswer;
@@ -29,7 +30,7 @@ public class Question extends GameData{
      *
      * @param fileName
      */
-    public Question(String questionFileName, String consequenceFileName) throws FileNotFoundException, IOException {
+    public QuestionImpl(String questionFileName, String consequenceFileName) throws FileNotFoundException, IOException {
         super(questionFileName);
         cons = new GameData(consequenceFileName);
         dontAskTheseAgain = new ArrayList<Integer>();

@@ -5,6 +5,8 @@
 package playersquest;
 
 
+import impl.QuestionImpl;
+import impl.QuestPlayerImpl;
 import eventhandler.QuestListener;
 import java.io.BufferedReader;
 import java.io.Console;
@@ -19,6 +21,7 @@ import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utility.Queries;
 import utility.QuestConfiguration;
 
 /**
@@ -31,9 +34,9 @@ public class PlayersQuest {
     private Logger log;
     private FileHandler fileHandler;
     private GameData cons;
-    private Question ques;
+    private QuestionImpl ques;
     
-    private ArrayList<Player> pl;
+    private ArrayList<QuestPlayerImpl> pl;
     private int numberOfPlayers;
     private QuestListener listener;
     
@@ -47,7 +50,7 @@ public class PlayersQuest {
             log = Logger.getLogger("playersquest.playersquest");
             log.addHandler(fileHandler);
             log.setLevel(Level.ALL);                        
-            pl = new ArrayList<Player>();
+            pl = new ArrayList<QuestPlayerImpl>();
             listener = handler;
             
         }catch(Exception e){
@@ -67,7 +70,7 @@ public class PlayersQuest {
    
     public void addNewPlayer(String name, int age, int playerType) throws FileNotFoundException, IOException, Exception{
         //if(name != null && !name.isEmpty() && name.length()> 1 && playerType > 0 && age > 0){
-            Player temp = new Player(name,age,playerType,configuration.getQuestionsFile(),configuration.getConsequencesFile());
+            QuestPlayerImpl temp = new QuestPlayerImpl(name,age,playerType,configuration.getQuestionsFile(),configuration.getConsequencesFile());
             temp.setListener(listener);
             pl.add(temp);                       
         //}        
@@ -75,7 +78,7 @@ public class PlayersQuest {
     
   
   
-    public Player getPlayer(int playerNumber) throws IndexOutOfBoundsException{
+    public QuestPlayerImpl getPlayer(int playerNumber) throws IndexOutOfBoundsException{
         if(playerNumber > 0 && pl.size()>= playerNumber){
             return pl.get(playerNumber - 1);    
         }
@@ -88,7 +91,7 @@ public class PlayersQuest {
     
     
   /*
-    public Question getQuiz(){
+    public QuestionImpl getQuiz(){
         return this.ques;
     }
   
@@ -151,24 +154,21 @@ public class PlayersQuest {
             PlayersQuest pc;
             QuestHandler qh;
             qh = new QuestHandler();            
-            
+            QuestConfiguration qc = new QuestConfiguration();
             //JLC 8.30.2013 SQLite
             Connection c = null;
             Statement s = null;
             
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            
+           
+            Class.forName(qc.getDatabaseClass());
+            c = DriverManager.getConnection(qc.getDatabaseName());
             s = c.createStatement();
-             String sql = "CREATE TABLE COMPANY " +
-                   "(ID INT PRIMARY KEY     NOT NULL," +
-                   " NAME           TEXT    NOT NULL, " + 
-                   " AGE            INT     NOT NULL, " + 
-                   " ADDRESS        CHAR(50), " + 
-                   " SALARY         REAL)"; 
+             String sql = Queries.getCreatePlayerTable();
               s.executeUpdate(sql);
               s.close();
               c.close();
-              
+            
               
             /*
             inStream = new BufferedReader(new InputStreamReader(System.in));
@@ -176,7 +176,7 @@ public class PlayersQuest {
             //String  ans;            
             boolean continueLooping = true, moreQuestions;
             //Question qxx;
-            Player p[];
+            QuestPlayerImpl p[];
             //Console console = System.console();
             int numOfPlayers = 0, playerType = 1;
             int playerTracker = 1;
