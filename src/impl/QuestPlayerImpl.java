@@ -18,7 +18,7 @@ public class QuestPlayerImpl {
     // resources = the men or other    
     private int age, amountOfGold, resources, health;
     private boolean skipPlayersTurn = false;
-    private QuestionImpl thisQuestion;
+    private QuestionAnswerConsequenceImpl thisQuestion;
     private QuestListener listener;
 
     /**
@@ -45,7 +45,7 @@ public class QuestPlayerImpl {
             this.health = 100;
             this.amountOfGold = 1000;
             this.resources = 60;
-            this.thisQuestion = new QuestionImpl(questionFileName, consequenceFileName);
+            this.thisQuestion = new QuestionAnswerConsequenceImpl(questionFileName, consequenceFileName);
             switch (playerType) {
                 case 1:
                     characterName = "Knight " + this.name;

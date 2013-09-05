@@ -5,7 +5,7 @@
 package playersquest;
 
 
-import impl.QuestionImpl;
+import impl.QuestionAnswerConsequenceImpl;
 import impl.QuestPlayerImpl;
 import eventhandler.QuestListener;
 import java.io.BufferedReader;
@@ -34,7 +34,7 @@ public class PlayersQuest {
     private Logger log;
     private FileHandler fileHandler;
     private GameData cons;
-    private QuestionImpl ques;
+    private QuestionAnswerConsequenceImpl ques;
     
     private ArrayList<QuestPlayerImpl> pl;
     private int numberOfPlayers;
@@ -91,7 +91,7 @@ public class PlayersQuest {
     
     
   /*
-    public QuestionImpl getQuiz(){
+    public QuestionAnswerConsequenceImpl getQuiz(){
         return this.ques;
     }
   

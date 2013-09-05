@@ -14,7 +14,7 @@ import playersquest.GameData;
  *
  * @author Lane
  */
-public class QuestionImpl extends GameData{
+public class QuestionAnswerConsequenceImpl extends GameData{
     
     private String thisQuestion;
     private String thisAnswer;
@@ -30,7 +30,7 @@ public class QuestionImpl extends GameData{
      *
      * @param fileName
      */
-    public QuestionImpl(String questionFileName, String consequenceFileName) throws FileNotFoundException, IOException {
+    public QuestionAnswerConsequenceImpl(String questionFileName, String consequenceFileName) throws FileNotFoundException, IOException {
         super(questionFileName);
         cons = new GameData(consequenceFileName);
         dontAskTheseAgain = new ArrayList<Integer>();

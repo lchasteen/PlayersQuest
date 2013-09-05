@@ -4,7 +4,7 @@
  */
 package model;
 
-import impl.QuestionImpl;
+import impl.QuestionAnswerConsequenceImpl;
 
 /**
  *
