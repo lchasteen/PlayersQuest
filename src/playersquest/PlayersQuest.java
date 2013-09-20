@@ -8,6 +8,7 @@ package playersquest;
 import impl.QuestionAnswerConsequenceImpl;
 import impl.QuestPlayerImpl;
 import eventhandler.QuestListener;
+import impl.QuestPlayerTypeImpl;
 import java.io.BufferedReader;
 import java.io.Console;
 import java.io.FileNotFoundException;
@@ -45,8 +46,8 @@ public class PlayersQuest {
         
         // Set the log, configuration file, consequences, and question file.
         try{
-            configuration = new QuestConfiguration();
-            fileHandler = new FileHandler(configuration.getLogFile());
+           // configuration = new QuestConfiguration();
+            fileHandler = new FileHandler(QuestConfiguration.getLogFile());
             log = Logger.getLogger("playersquest.playersquest");
             log.addHandler(fileHandler);
             log.setLevel(Level.ALL);                        
@@ -68,13 +69,7 @@ public class PlayersQuest {
         
     }
    
-    public void addNewPlayer(String name, int age, int playerType) throws FileNotFoundException, IOException, Exception{
-        //if(name != null && !name.isEmpty() && name.length()> 1 && playerType > 0 && age > 0){
-            QuestPlayerImpl temp = new QuestPlayerImpl(name,age,playerType,configuration.getQuestionsFile(),configuration.getConsequencesFile());
-            temp.setListener(listener);
-            pl.add(temp);                       
-        //}        
-    }
+  
     
   
   
@@ -154,21 +149,33 @@ public class PlayersQuest {
             PlayersQuest pc;
             QuestHandler qh;
             qh = new QuestHandler();            
-            QuestConfiguration qc = new QuestConfiguration();
+            
             //JLC 8.30.2013 SQLite
             Connection c = null;
             Statement s = null;
             
             
-           
-            Class.forName(qc.getDatabaseClass());
-            c = DriverManager.getConnection(qc.getDatabaseName());
-            s = c.createStatement();
-             String sql = Queries.getCreatePlayerTable();
-              s.executeUpdate(sql);
-              s.close();
-              c.close();
+           try{
+                Class.forName(QuestConfiguration.getDatabaseClass());
+                c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
+                s = c.createStatement();
+                String dpe = Queries.getCreateLevelTable();
+                String sql = Queries.getCreatePlayerTable();
+                String sql2 = Queries.getCreatePlayerTypeTable();
+                s.executeUpdate(dpe);
+                s.executeUpdate(sql);
+                s.executeUpdate(sql2);
+                s.close();
+                c.close();
+           }catch(Exception e){
+               e.printStackTrace();
+           }
             
+              
+              QuestPlayerTypeImpl qpl = new QuestPlayerTypeImpl("Thief");
+              qpl.addPlayerType("Nobleman");
+              
+              
               
             /*
             inStream = new BufferedReader(new InputStreamReader(System.in));

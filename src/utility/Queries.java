@@ -10,37 +10,50 @@ package utility;
  */
 public class Queries {
     private static final String createPlayerTable = "CREATE TABLE PLAYER "
-            + "(PLAYERID    INT        PRIMARY KEY NOT NULL,"
+            + "(PLAYERID    INTEGER        PRIMARY KEY AUTOINCREMENT,"
             + " NAME        TEXT       NOT NULL,"
-            + " AGE         INT        NOT NULL,"
+            + " AGE         INTEGER        NOT NULL,"
+            + " PLAYERTYPE  INTEGER        NOT NULL,"
+            + " LEVELID     INTEGER        NOT NULL,"
             + " FOREIGN KEY (LEVELID) REFERENCES LEVEL(LEVELID))";
     
-    private static final String createQuestionTable = "CREATE TABLE QUESTION"
-            + "(QUESTIONID    INT        PRIMARY KEY NOT NULL,"
+    private static final String createQuestionTable = "CREATE TABLE QUESTION "
+            + "(QUESTIONID    INTEGER        PRIMARY KEY AUTOINCREMENT,"
             + " QUESTION      TEXT       NOT NULL)";
     
-    private static final String createAnswerTable = "CREATE TABLE ANSWER"
-            + "(ANSWERID    INT        PRIMARY KEY NOT NULL,"
+    private static final String createAnswerTable = "CREATE TABLE ANSWER "
+            + "(ANSWERID    INTEGER        PRIMARY KEY AUTOINCREMENT,"
             + " ANSWER      TEXT       NOT NULL)";
     
-    private static final String createConsequenceTable = "CREATE TABLE CONSEQUENCE"
-            + "(CONSEQUENCEID    INT        PRIMARY KEY NOT NULL,"
+    private static final String createConsequenceTable = "CREATE TABLE CONSEQUENCE "
+            + "(CONSEQUENCEID    INTEGER        PRIMARY KEY AUTOINCREMENT,"
             + " CONSEQUENCE      TEXT       NOT NULL,"
-            + " CONSEQUENCEVALUE INT        NOT NULL)";
+            + " CONSEQUENCEVALUE INTEGER        NOT NULL)";
     
-    private static final String createAnswerLevel = "CREATE TABLE LEVEL"
-            + "(LEVELID    INT        PRIMARY KEY NOT NULL,"
-            + " LEVEL      TEXT       NOT NULL,"
-            + " LEVELID    INT        NOT NULL)";
+    private static final String createLevelTable = "CREATE TABLE LEVEL "
+            + "(LEVELID    INTEGER        PRIMARY KEY AUTOINCREMENT,"
+            + " LEVEL      TEXT       NOT NULL)";
+            
     
     private static final String createQuestionAnswerConsequenceTable = 
-            "CREATE TABLE QAC (QACID INT PRIMARY KEY NOT NULL,"
+            "CREATE TABLE QAC (QACID INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + " LEVELID         INTEGER         NOT NULL,"
+            + " QUESTIONID      INTEGER         NOT NULL,"
+            + " CONSEQUENCEID   INTEGER         NOT NULL,"
+            + " ANSWERID        INTEGER         NOT NULL,"
             + " FOREIGN KEY(LEVELID) REFERENCES LEVEL(LEVELID),"
             + " FOREIGN KEY(QUESTIONID) REFERENCES QUESTION(QUESTIONID),"
             + " FOREIGN KEY(CONSEQUENCEID) REFERENCES CONSEQUENCE(CONSEQUENCEID),"
             + " FOREIGN KEY(ANSWERID) REFERENCES ANSWER(ANSWERID))";
             
+    private static final String createPlayerTypeTable = "CREATE TABLE PLAYERTYPE"
+            + "(TYPEID    INTEGER    PRIMARY KEY AUTOINCREMENT,"
+            + " DESCRIPTION      TEXT       NOT NULL)";
     
+    private static final String selectPlayerType = "SELECT TYPEID, DESCRIPTION "
+            + "FROM PLAYERTYPE";
+    
+    private static final String insertPlayerType = "INSERT INTO PLAYERTYPE (DESCRIPTION) VALUES (?)";
     
     public static String getCreatePlayerTable() {
         return createPlayerTable;
@@ -58,12 +71,26 @@ public class Queries {
         return createConsequenceTable;
     }
 
-    public static String getCreateAnswerLevel() {
-        return createAnswerLevel;
+    public static String getCreateLevelTable() {
+        return createLevelTable;
     }
+
+    public static String getInsertPlayerType() {
+        return insertPlayerType;
+    }
+
+ 
 
     public static String getCreateQuestionAnswerConsequenceTable() {
         return createQuestionAnswerConsequenceTable;
+    }
+
+    public static String getCreatePlayerTypeTable() {
+        return createPlayerTypeTable;
+    }
+
+    public static String getSelectPlayerType() {
+        return selectPlayerType;
     }
             
             

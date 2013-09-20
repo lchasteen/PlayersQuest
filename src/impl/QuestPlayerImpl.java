@@ -7,6 +7,7 @@ package impl;
 import eventhandler.QuestListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import utility.QuestConfiguration;
 
 /**
  *
@@ -32,21 +33,28 @@ public class QuestPlayerImpl {
      * @throws IOException
      * @throws Exception
      */
-    public QuestPlayerImpl(String name, int age, int playerType, String questionFileName, String consequenceFileName) throws FileNotFoundException, IOException, Exception {
+    public QuestPlayerImpl(String name, String type, int age, int playerType) throws FileNotFoundException, IOException, Exception {
         if (name != null && !name.isEmpty()
-                && age > 0 && age <= 120
-                && questionFileName != null && !questionFileName.isEmpty()
-                && consequenceFileName != null && !consequenceFileName.isEmpty()) {
+                && age > 0 && age <= 120 ) {
             this.name = getProperName(name);
             if(this.name == null ){
                 throw new Exception("Invalid name.");
             }
             this.age = age;
-            this.health = 100;
-            this.amountOfGold = 1000;
-            this.resources = 60;
-            this.thisQuestion = new QuestionAnswerConsequenceImpl(questionFileName, consequenceFileName);
-            switch (playerType) {
+            this.health = QuestConfiguration.getHealth();
+            this.amountOfGold = QuestConfiguration.getMoney();
+            this.resources = QuestConfiguration.getResources();          
+
+            
+        } else {
+            throw new Exception("Name and(or) age must be valid.");
+        }
+
+    }
+    
+    
+    private String getGamePlayerName(String rawName, int playerType){
+         switch (playerType) {
                 case 1:
                     characterName = "Knight " + this.name;
                     break;
@@ -66,11 +74,7 @@ public class QuestPlayerImpl {
                     characterName = this.name;
                     break;
             }
-
-            this.thisQuestion.getNextQuestion();
-        } else {
-            throw new Exception("Name and(or) age must be valid.");
-        }
+        return null;
 
     }
 
@@ -119,6 +123,8 @@ public class QuestPlayerImpl {
         boolean res = thisQuestion.getNextQuestion();
         return res;
     }
+    
+    
 
 
     /*
