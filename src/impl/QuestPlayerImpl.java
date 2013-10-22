@@ -7,6 +7,8 @@ package impl;
 import eventhandler.QuestListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import model.QuestPlayer;
 import utility.QuestConfiguration;
 
 /**
@@ -21,6 +23,7 @@ public class QuestPlayerImpl {
     private boolean skipPlayersTurn = false;
     private QuestionAnswerConsequenceImpl thisQuestion;
     private QuestListener listener;
+    private ArrayList <QuestPlayer> players;
 
     /**
      *
@@ -33,7 +36,12 @@ public class QuestPlayerImpl {
      * @throws IOException
      * @throws Exception
      */
-    public QuestPlayerImpl(String name, String type, int age, int playerType) throws FileNotFoundException, IOException, Exception {
+    public QuestPlayerImpl(String name, int type, int age, int playerType) throws FileNotFoundException, IOException, Exception {
+       addNewPlayer(name,type,age,playerType);
+
+    }
+    
+    public final void addNewPlayer(String name, int type, int age, int playerType) throws FileNotFoundException, IOException, Exception {
         if (name != null && !name.isEmpty()
                 && age > 0 && age <= 120 ) {
             this.name = getProperName(name);
@@ -44,36 +52,16 @@ public class QuestPlayerImpl {
             this.health = QuestConfiguration.getHealth();
             this.amountOfGold = QuestConfiguration.getMoney();
             this.resources = QuestConfiguration.getResources();          
-
+                    
             
         } else {
             throw new Exception("Name and(or) age must be valid.");
         }
-
     }
     
     
     private String getGamePlayerName(String rawName, int playerType){
-         switch (playerType) {
-                case 1:
-                    characterName = "Knight " + this.name;
-                    break;
-                case 2:
-                    characterName = "Nobleman " + this.name;
-                    break;
-                case 3:
-                    characterName = "Healer " + this.name;
-                    break;
-                case 4:
-                    characterName = "Thief " + this.name;
-                    break;
-                case 5:
-                    characterName = "Wizzard " + this.name;
-                    break;
-                default:
-                    characterName = this.name;
-                    break;
-            }
+            
         return null;
 
     }

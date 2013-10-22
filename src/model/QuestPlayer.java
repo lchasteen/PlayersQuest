@@ -10,7 +10,7 @@ import impl.QuestionAnswerConsequenceImpl;
  *
  * @author lchastee
  */
-public class QuestPlayer extends Player{
+public class QuestPlayer extends PlayerType{
     int playerType;
     int playerNumber;
     String playerName;

@@ -15,7 +15,8 @@ public class Queries {
             + " AGE         INTEGER        NOT NULL,"
             + " PLAYERTYPE  INTEGER        NOT NULL,"
             + " LEVELID     INTEGER        NOT NULL,"
-            + " FOREIGN KEY (LEVELID) REFERENCES LEVEL(LEVELID))";
+            + " FOREIGN KEY (LEVELID) REFERENCES LEVEL(LEVELID),"
+            + " FOREIGN KEY (PLAYERTYPE) REFERENCES LEVEL(TYPEID))";
     
     private static final String createQuestionTable = "CREATE TABLE QUESTION "
             + "(QUESTIONID    INTEGER        PRIMARY KEY AUTOINCREMENT,"
@@ -32,7 +33,8 @@ public class Queries {
     
     private static final String createLevelTable = "CREATE TABLE LEVEL "
             + "(LEVELID    INTEGER        PRIMARY KEY AUTOINCREMENT,"
-            + " LEVEL      TEXT       NOT NULL)";
+            + " LEVEL      TEXT       NOT NULL,"
+            + " LEVEL_VALUE       INTEGER   NOT NULL)";
             
     
     private static final String createQuestionAnswerConsequenceTable = 
@@ -54,6 +56,11 @@ public class Queries {
             + "FROM PLAYERTYPE";
     
     private static final String insertPlayerType = "INSERT INTO PLAYERTYPE (DESCRIPTION) VALUES (?)";
+    private static final String insertLevel = "INSERT INTO LEVEL (LEVEL, LEVEL_VALUE) VALUES (?,?)";
+
+    public static String getInsertLevel() {
+        return insertLevel;
+    }
     
     public static String getCreatePlayerTable() {
         return createPlayerTable;

@@ -8,6 +8,7 @@ package playersquest;
 import impl.QuestionAnswerConsequenceImpl;
 import impl.QuestPlayerImpl;
 import eventhandler.QuestListener;
+import impl.QuestLevelImpl;
 import impl.QuestPlayerTypeImpl;
 import java.io.BufferedReader;
 import java.io.Console;
@@ -172,8 +173,11 @@ public class PlayersQuest {
            }
             
               
-              QuestPlayerTypeImpl qpl = new QuestPlayerTypeImpl("Thief");
-              qpl.addPlayerType("Nobleman");
+              QuestPlayerTypeImpl qpl = new QuestPlayerTypeImpl();
+              qpl.createPlayerTypeTable();
+              
+              QuestLevelImpl qli = new QuestLevelImpl();
+              qli.createLevelTable();
               
               
               

@@ -8,7 +8,7 @@ package model;
  *
  * @author lchastee
  */
-public class PlayerType {
+public class PlayerType extends Player {
     private String Description;
     private int Type;
 

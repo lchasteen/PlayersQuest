@@ -22,20 +22,21 @@ import utility.QuestConfiguration;
 public class QuestPlayerTypeImpl {
   private  ArrayList <PlayerType> al;
   
+  public QuestPlayerTypeImpl(){
+      
+  }
   public QuestPlayerTypeImpl(String description) throws ClassNotFoundException, SQLException{
       addPlayerType(description);
   }
   
   
-  public void addPlayerType(String description)throws ClassNotFoundException, SQLException{
+  public final void addPlayerType(String description)throws ClassNotFoundException, SQLException{
       if(description!= null && !description.isEmpty()){
-        Connection c = null;
-        PreparedStatement s = null;
         
         
         Class.forName(QuestConfiguration.getDatabaseClass());
-        c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
-        s = c.prepareStatement(Queries.getInsertPlayerType());        
+        Connection c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
+        PreparedStatement s = c.prepareStatement(Queries.getInsertPlayerType());        
         s.setString(1, description);     
         s.execute();
         s.close();
@@ -46,19 +47,17 @@ public class QuestPlayerTypeImpl {
   }
 
     public ArrayList<PlayerType> getAll()  throws ClassNotFoundException, SQLException{
-       String sqlstr;      
-      
-       Connection c = null;
-       Statement s = null;
-       ResultSet rs = null;     
+       String sqlstr;            
+       
+       
        al = new ArrayList<PlayerType>();     
            
        Class.forName(QuestConfiguration.getDatabaseClass());
-       c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
-       s = c.createStatement();
+       Connection c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
+       Statement s = c.createStatement();
        
        sqlstr = Queries.getSelectPlayerType();
-       rs = s.executeQuery(sqlstr);
+       ResultSet rs = s.executeQuery(sqlstr);
        
        while(rs.next()){
            PlayerType p = new PlayerType();
@@ -71,6 +70,16 @@ public class QuestPlayerTypeImpl {
        s.close();
        c.close();
        return al;
+    }
+    
+    public final void createPlayerTypeTable() throws ClassNotFoundException, SQLException{
+        
+        String[] characterName = {"Knight", "Nobleman","Healer","Thief","Wizzard"};
+        
+           for(int i = 0; i < characterName.length; i++){
+               this.addPlayerType(characterName[i]);
+           }
+        
     }
   
 
