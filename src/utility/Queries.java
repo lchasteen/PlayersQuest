@@ -57,6 +57,11 @@ public class Queries {
     
     private static final String insertPlayerType = "INSERT INTO PLAYERTYPE (DESCRIPTION) VALUES (?)";
     private static final String insertLevel = "INSERT INTO LEVEL (LEVEL, LEVEL_VALUE) VALUES (?,?)";
+    private static final String insertPlayer = "INSERT INTO PLAYER (NAME, AGE, PLAYERTYPE, LEVELID) VALUES (?,?,?,?)";
+
+    public static String getInsertPlayer() {
+        return insertPlayer;
+    }
 
     public static String getInsertLevel() {
         return insertLevel;

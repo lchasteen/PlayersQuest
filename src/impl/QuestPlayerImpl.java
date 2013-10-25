@@ -60,6 +60,16 @@ public class QuestPlayerImpl {
     }
     
     
+      public final void addNewPlayer(QuestPlayer player) throws FileNotFoundException, IOException, Exception {
+        if (player == null) {
+            
+            
+        } else {
+            throw new Exception("Player Object is null.");
+        }
+    }
+    
+    
     private String getGamePlayerName(String rawName, int playerType){
             
         return null;
