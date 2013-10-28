@@ -59,7 +59,7 @@ public class QuestPlayerImpl {
         s.setString(1, qp.getName());     
         s.setInt(2, qp.getAge());
         s.setInt(3, qp.getType());
-        s.setInt(4, qp.getPlayerLevel());
+        s.setInt(4, qp.getLevel());
         s.setInt(5, qp.getHealth());
         s.setInt(6, qp.getResources());
         s.setInt(7, qp.getAmountOfGold());
@@ -76,7 +76,7 @@ public class QuestPlayerImpl {
         QuestPlayer qc = new QuestPlayer();
         
         if (name != null && !name.isEmpty()) {
-                qc.setPlayerName(this.getProperName(name));
+                qc.setName(this.getProperName(name));
         }
         else{            
             throw new Exception("Invalid name.");
@@ -97,7 +97,7 @@ public class QuestPlayerImpl {
         qc.setHealth(QuestConfiguration.getHealth());
         qc.setAmountOfGold(QuestConfiguration.getMoney());
         qc.setResources(QuestConfiguration.getResources());          
-        qc.setPlayerLevel(QuestConfiguration.getStartLevel());
+        qc.setLevel(QuestConfiguration.getStartLevel());
         
         addNewPlayer(qc);
     }   
