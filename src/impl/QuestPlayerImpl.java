@@ -7,8 +7,13 @@ package impl;
 import eventhandler.QuestListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import model.QuestPlayer;
+import utility.Queries;
 import utility.QuestConfiguration;
 
 /**
@@ -36,38 +41,66 @@ public class QuestPlayerImpl {
      * @throws IOException
      * @throws Exception
      */
-    public QuestPlayerImpl(String name, int type, int age, int playerType) throws FileNotFoundException, IOException, Exception {
-       addNewPlayer(name,type,age,playerType);
+    public QuestPlayerImpl(String name, int age, int playerType) throws FileNotFoundException, IOException, Exception {
+       addNewPlayer(name,age,playerType);
 
     }
     
-    public final void addNewPlayer(String name, int type, int age, int playerType) throws FileNotFoundException, IOException, Exception {
-        if (name != null && !name.isEmpty()
-                && age > 0 && age <= 120 ) {
-            this.name = getProperName(name);
-            if(this.name == null ){
-                throw new Exception("Invalid name.");
-            }
-            this.age = age;
-            this.health = QuestConfiguration.getHealth();
-            this.amountOfGold = QuestConfiguration.getMoney();
-            this.resources = QuestConfiguration.getResources();          
-                    
-            
-        } else {
-            throw new Exception("Name and(or) age must be valid.");
-        }
+    public QuestPlayerImpl(QuestPlayer qp) throws FileNotFoundException, IOException, Exception {
+        addNewPlayer(qp);
     }
     
-    
-      public final void addNewPlayer(QuestPlayer player) throws FileNotFoundException, IOException, Exception {
-        if (player == null) {
-            
-            
-        } else {
-            throw new Exception("Player Object is null.");
-        }
+    public final void addNewPlayer(QuestPlayer qp) throws FileNotFoundException, IOException, Exception {
+      if(qp == null){        
+        
+        Class.forName(QuestConfiguration.getDatabaseClass());
+        Connection c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
+        PreparedStatement s = c.prepareStatement(Queries.getInsertPlayer());        
+        s.setString(1, qp.getName());     
+        s.setInt(2, qp.getAge());
+        s.setInt(3, qp.getType());
+        s.setInt(4, qp.getPlayerLevel());
+        s.setInt(5, qp.getHealth());
+        s.setInt(6, qp.getResources());
+        s.setInt(7, qp.getAmountOfGold());
+        
+        s.execute();
+        s.close();
+        c.close();
+      } else {          
+          throw new SQLException("Invalid Player Type!");
+      }   
     }
+    
+    private void addNewPlayer(String name,int age, int playerType) throws FileNotFoundException, IOException, Exception {
+        QuestPlayer qc = new QuestPlayer();
+        
+        if (name != null && !name.isEmpty()) {
+                qc.setPlayerName(this.getProperName(name));
+        }
+        else{            
+            throw new Exception("Invalid name.");
+        }
+        if (age > 0){
+            qc.setAge(age);
+        }
+        else{            
+            throw new Exception("Invalid age. Player's age must be greater than zero.");
+        }
+        if(playerType > 0){
+            qc.setType(playerType);
+        }
+        else {
+            throw new Exception("Invalid player type.");
+        }
+                   
+        qc.setHealth(QuestConfiguration.getHealth());
+        qc.setAmountOfGold(QuestConfiguration.getMoney());
+        qc.setResources(QuestConfiguration.getResources());          
+        qc.setPlayerLevel(QuestConfiguration.getStartLevel());
+        
+        addNewPlayer(qc);
+    }   
     
     
     private String getGamePlayerName(String rawName, int playerType){

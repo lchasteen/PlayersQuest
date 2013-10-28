@@ -20,6 +20,7 @@ public class QuestConfiguration {
     private final static int resources;
     private final static int money;
     private final static int health;
+    private final static int startLevel;
     private final static ResourceBundle props;
     
     
@@ -35,7 +36,13 @@ public class QuestConfiguration {
           money = Integer.parseInt(props.getString("money"));
           resources = Integer.parseInt(props.getString("resources"));
           health = Integer.parseInt(props.getString("health"));
+          startLevel = Integer.parseInt(props.getString("level"));
     }
+
+    public static int getStartLevel() {
+        return startLevel;
+    }
+    
     
     public static String getConsequencesFile(){
         return consequencesFile;

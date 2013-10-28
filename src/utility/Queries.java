@@ -15,6 +15,9 @@ public class Queries {
             + " AGE         INTEGER        NOT NULL,"
             + " PLAYERTYPE  INTEGER        NOT NULL,"
             + " LEVELID     INTEGER        NOT NULL,"
+            + " HEALTH      INTEGER        NOT NULL,"
+            + " RESOURCES   INTEGER        NOT NULL,"
+            + " GOLD        INTEGER        NOT NULL,"
             + " FOREIGN KEY (LEVELID) REFERENCES LEVEL(LEVELID),"
             + " FOREIGN KEY (PLAYERTYPE) REFERENCES LEVEL(TYPEID))";
     
@@ -57,7 +60,7 @@ public class Queries {
     
     private static final String insertPlayerType = "INSERT INTO PLAYERTYPE (DESCRIPTION) VALUES (?)";
     private static final String insertLevel = "INSERT INTO LEVEL (LEVEL, LEVEL_VALUE) VALUES (?,?)";
-    private static final String insertPlayer = "INSERT INTO PLAYER (NAME, AGE, PLAYERTYPE, LEVELID) VALUES (?,?,?,?)";
+    private static final String insertPlayer = "INSERT INTO PLAYER (NAME, AGE, PLAYERTYPE, LEVELID, HEALTH, RESOURCES, GOLD) VALUES (?,?,?,?,?,?,?)";
 
     public static String getInsertPlayer() {
         return insertPlayer;

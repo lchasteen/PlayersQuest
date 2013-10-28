@@ -14,7 +14,7 @@ import impl.QuestionAnswerConsequenceImpl;
 public class Player {
     private String name;
     // resources = the men or other    
-    private int age, amountOfGold, resources, health;
+    private int age, amountOfGold, resources, health, level;
  
     //private QuestListener listener;
 
@@ -57,6 +57,16 @@ public class Player {
     public void setHealth(int health) {
         this.health = health;
     }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+    
 
   
     

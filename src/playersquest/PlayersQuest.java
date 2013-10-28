@@ -179,6 +179,9 @@ public class PlayersQuest {
               QuestLevelImpl qli = new QuestLevelImpl();
               qli.createLevelTable();
               
+              QuestPlayerImpl qpi = new QuestPlayerImpl("billy bob",10,1);
+              
+              
               
               
             /*

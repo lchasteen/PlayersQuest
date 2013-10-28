@@ -24,13 +24,7 @@ public class QuestPlayer extends PlayerType{
         this.playerNumber = playerNumber;
     }
 
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
+    
     
     
     public boolean isSkipPlayersTurn() {
