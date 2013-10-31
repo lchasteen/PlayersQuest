@@ -1,24 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/C:/Projects/Java/PlayersQuest/src/playersquest/GameData.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/impl/QuestPlayerImpl.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/impl/QuestionAnswerConsequenceImpl.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/playersquest/PlayersQuest.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/resources/quest.properties</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/utility/QuestConfiguration.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/utility/SimpleFile.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/eventhandler/QuestListener.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/model/Player.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/model/QuestionAnswerConsequence.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/model/QuestPlayer.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/utility/Queries.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/impl/QuestImpl.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/utility/Test.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/utility/Test2.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/model/PlayerType.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/impl/QuestPlayerTypeImpl.java</file>
-        <file>file:/C:/Projects/Java/PlayersQuest/src/impl/QuestLevelImpl.java</file>
-    </open-files>
 </project-private>

@@ -35,7 +35,23 @@ public class QuestPlayer extends PlayerType{
         this.skipPlayersTurn = skipPlayersTurn;
     }
 
-    
+    @Override
+    public String toString(){
+     String tString = null;
+     if(this.getName()!= null){
+        tString = "Name:[" + this.getName() + "] ";
+     }
+     tString += "Player Type:[" + String.valueOf(this.getType())+ "] ";
+     tString += "Age:[" + String.valueOf(this.getAge()) + "] ";       
+     tString += "Level:[" + String.valueOf(this.getLevel()) + "] ";
+     tString += "Health:[" + String.valueOf(this.getHealth()) + "] ";
+     tString += "Resources:[" + String.valueOf(this.getResources()) + "] ";
+     tString += "Gold:[" + String.valueOf(this.getAmountOfGold()) + "] ";
+     
+     
+        return tString;
+     
+    }
     
     
 }

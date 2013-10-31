@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import model.QuestPlayer;
 import utility.Queries;
 import utility.QuestConfiguration;
+import utility.SimpleLog;
 
 /**
  *
@@ -51,7 +52,7 @@ public class QuestPlayerImpl {
     }
     
     public final void addNewPlayer(QuestPlayer qp) throws FileNotFoundException, IOException, Exception {
-      if(qp == null){        
+      if(qp != null){        
         
         Class.forName(QuestConfiguration.getDatabaseClass());
         Connection c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
@@ -68,7 +69,7 @@ public class QuestPlayerImpl {
         s.close();
         c.close();
       } else {          
-          throw new SQLException("Invalid Player Type!");
+          throw new SQLException("Method: addNewPlayer(), QuestPlayer is null!");
       }   
     }
     
@@ -97,8 +98,9 @@ public class QuestPlayerImpl {
         qc.setHealth(QuestConfiguration.getHealth());
         qc.setAmountOfGold(QuestConfiguration.getMoney());
         qc.setResources(QuestConfiguration.getResources());          
-        qc.setLevel(QuestConfiguration.getStartLevel());
+        qc.setLevel(QuestConfiguration.getStartLevel());        
         
+        //SimpleLog.setError(qc.toString());
         addNewPlayer(qc);
     }   
     

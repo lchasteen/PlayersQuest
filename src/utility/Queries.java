@@ -21,6 +21,10 @@ public class Queries {
             + " FOREIGN KEY (LEVELID) REFERENCES LEVEL(LEVELID),"
             + " FOREIGN KEY (PLAYERTYPE) REFERENCES LEVEL(TYPEID))";
     
+    private static final String createPlayerTypeTable = "CREATE TABLE PLAYERTYPE"
+            + "(TYPEID    INTEGER    PRIMARY KEY AUTOINCREMENT,"
+            + " DESCRIPTION      TEXT       NOT NULL)";
+    
     private static final String createQuestionTable = "CREATE TABLE QUESTION "
             + "(QUESTIONID    INTEGER        PRIMARY KEY AUTOINCREMENT,"
             + " QUESTION      TEXT       NOT NULL)";
@@ -51,9 +55,7 @@ public class Queries {
             + " FOREIGN KEY(CONSEQUENCEID) REFERENCES CONSEQUENCE(CONSEQUENCEID),"
             + " FOREIGN KEY(ANSWERID) REFERENCES ANSWER(ANSWERID))";
             
-    private static final String createPlayerTypeTable = "CREATE TABLE PLAYERTYPE"
-            + "(TYPEID    INTEGER    PRIMARY KEY AUTOINCREMENT,"
-            + " DESCRIPTION      TEXT       NOT NULL)";
+    
     
     private static final String selectPlayerType = "SELECT TYPEID, DESCRIPTION "
             + "FROM PLAYERTYPE";

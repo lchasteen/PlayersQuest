@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import utility.Queries;
 import utility.QuestConfiguration;
+import utility.SimpleLog;
 
 /**
  *
@@ -181,7 +182,7 @@ public class PlayersQuest {
               
               QuestPlayerImpl qpi = new QuestPlayerImpl("billy bob",10,1);
               
-              
+              SimpleLog.setError("Supper FREAK");
               
               
             /*
