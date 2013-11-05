@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import utility.DatabaseConnection;
 import utility.Queries;
 import utility.QuestConfiguration;
 
@@ -25,14 +26,14 @@ public class QuestLevelImpl {
       if(levelDescription!= null && !levelDescription.isEmpty() && levelValue > 0){
         
         
-        Class.forName(QuestConfiguration.getDatabaseClass());
-        Connection c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
-        PreparedStatement s = c.prepareStatement(Queries.getInsertLevel());        
+        //Class.forName(QuestConfiguration.getDatabaseClass());
+        //Connection c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
+        PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertLevel());        
         s.setString(1, levelDescription);     
         s.setInt(2, levelValue);
         s.execute();
         s.close();
-        c.close();
+        //c.close();
       } else {          
           throw new SQLException("Invalid Player Type!");
       }

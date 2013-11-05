@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.QuestPlayer;
+import utility.DatabaseConnection;
 import utility.Queries;
 import utility.QuestConfiguration;
 import utility.SimpleLog;
@@ -42,6 +43,9 @@ public class QuestPlayerImpl {
      * @throws IOException
      * @throws Exception
      */
+    public QuestPlayerImpl(){
+        
+    }
     public QuestPlayerImpl(String name, int age, int playerType) throws FileNotFoundException, IOException, Exception {
        addNewPlayer(name,age,playerType);
 
@@ -54,9 +58,9 @@ public class QuestPlayerImpl {
     public final void addNewPlayer(QuestPlayer qp) throws FileNotFoundException, IOException, Exception {
       if(qp != null){        
         
-        Class.forName(QuestConfiguration.getDatabaseClass());
-        Connection c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
-        PreparedStatement s = c.prepareStatement(Queries.getInsertPlayer());        
+        //Class.forName(QuestConfiguration.getDatabaseClass());
+        //Connection c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
+        PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertPlayer());        
         s.setString(1, qp.getName());     
         s.setInt(2, qp.getAge());
         s.setInt(3, qp.getType());
@@ -67,15 +71,15 @@ public class QuestPlayerImpl {
         
         s.execute();
         s.close();
-        c.close();
+        //c.close();
       } else {          
           throw new SQLException("Method: addNewPlayer(), QuestPlayer is null!");
       }   
     }
     
-    private void addNewPlayer(String name,int age, int playerType) throws FileNotFoundException, IOException, Exception {
+    public void addNewPlayer(String name,int age, int playerType) throws FileNotFoundException, IOException, Exception {
         QuestPlayer qc = new QuestPlayer();
-        
+       
         if (name != null && !name.isEmpty()) {
                 qc.setName(this.getProperName(name));
         }
@@ -103,6 +107,7 @@ public class QuestPlayerImpl {
         //SimpleLog.setError(qc.toString());
         addNewPlayer(qc);
     }   
+    
     
     
     private String getGamePlayerName(String rawName, int playerType){

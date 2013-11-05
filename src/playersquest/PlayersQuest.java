@@ -23,6 +23,7 @@ import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utility.DatabaseConnection;
 import utility.Queries;
 import utility.QuestConfiguration;
 import utility.SimpleLog;
@@ -180,11 +181,15 @@ public class PlayersQuest {
               QuestLevelImpl qli = new QuestLevelImpl();
               qli.createLevelTable();
               
-              QuestPlayerImpl qpi = new QuestPlayerImpl("billy bob",10,1);
+              //QuestPlayerImpl qpi = new QuestPlayerImpl("billy bob",10,1);
+              qpl.addNewPlayer("billy bob",10,1);
+              qpl.addPlayerTypeDescription("carl lewis", 2, "Super Freak");
               
-              SimpleLog.setError("Supper FREAK");
+              qpl.getPlayer(1).toString();
+             
               
               
+              DatabaseConnection.closeConnection();
             /*
             inStream = new BufferedReader(new InputStreamReader(System.in));
             //Scanner inStream = new Scanner(System.in);

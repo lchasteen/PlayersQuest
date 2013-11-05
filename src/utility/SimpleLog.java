@@ -22,6 +22,7 @@ public class SimpleLog {
         try {      
             FileHandler fileHandler = new FileHandler(QuestConfiguration.getLogFile());
             theLogger.addHandler(fileHandler);
+            theLogger.setLevel(Level.FINE);
         } catch (IOException ex) {
             Logger.getLogger(SimpleLog.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SecurityException ex) {
@@ -31,15 +32,21 @@ public class SimpleLog {
   }
   
 
-  public static void setError( String message ) throws IOException {
-
-        
+  public static void setError( String message ) {
+    
     // We also have to set our logger to log finer-grained
-    // messages
-    theLogger.setLevel(Level.FINE);
+    // messages    
     theLogger.fine(message);
-    System.err.println(message);
+    System.err.println(message);  
     
-    
-}
+  }
+  
+  public static void setError (Exception exception){
+    // We also have to set our logger to log finer-grained
+    // messages    
+    if(exception != null){
+        theLogger.fine(exception.toString());
+        System.err.println(exception.toString());  
+    }
+  }
 }

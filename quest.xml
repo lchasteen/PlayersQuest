@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2013-10-31T17:31:57</date>
-  <millis>1383255117603</millis>
+  <date>2013-11-05T17:08:14</date>
+  <millis>1383689294221</millis>
   <sequence>0</sequence>
   <logger>utility.SimpleLog</logger>
   <level>FINE</level>

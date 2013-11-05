@@ -61,9 +61,22 @@ public class Queries {
             + "FROM PLAYERTYPE";
     
     private static final String insertPlayerType = "INSERT INTO PLAYERTYPE (DESCRIPTION) VALUES (?)";
+    private static final String insertPlayerTypeGetID = "SELECT LAST_INSERT_ROWID() AS LAST_ID FROM PLAYERTYPE";
     private static final String insertLevel = "INSERT INTO LEVEL (LEVEL, LEVEL_VALUE) VALUES (?,?)";
     private static final String insertPlayer = "INSERT INTO PLAYER (NAME, AGE, PLAYERTYPE, LEVELID, HEALTH, RESOURCES, GOLD) VALUES (?,?,?,?,?,?,?)";
+    private static final String selectPlayer = "SELECT PLAYERID, NAME, AGE, PLAYERTYPE, LEVELID, HEALTH, RESOURCES, GOLD FROM PLAYER WHERE PLAYERID = ?";
 
+    public static String getSelectPlayer() {
+        return selectPlayer;
+    }
+
+    
+    
+    public static String getInsertPlayerTypeGetID() {
+        return insertPlayerTypeGetID;
+    }
+
+    
     public static String getInsertPlayer() {
         return insertPlayer;
     }
