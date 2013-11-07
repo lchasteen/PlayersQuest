@@ -19,10 +19,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.QuestPlayer;
 import utility.DatabaseConnection;
 import utility.Queries;
 import utility.QuestConfiguration;
@@ -185,8 +187,15 @@ public class PlayersQuest {
               qpl.addNewPlayer("billy bob",10,1);
               qpl.addPlayerTypeDescription("carl lewis", 2, "Super Freak");
               
-              qpl.getPlayer(1).toString();
-             
+              //qpl.getPlayer(1).toString();
+              ArrayList <QuestPlayer> qp = qpl.getAllPlayers();
+              Iterator it = qp.iterator();
+              
+              while(it.hasNext()){
+                  System.out.println((QuestPlayer) it.next());
+              }
+              
+              
               
               
               DatabaseConnection.closeConnection();

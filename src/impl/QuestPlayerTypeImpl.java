@@ -24,15 +24,13 @@ import utility.QuestConfiguration;
  * @author lchastee
  */
 public class QuestPlayerTypeImpl extends QuestPlayerImpl{
-  private  ArrayList <PlayerType> al;
+  private  ArrayList <QuestPlayer> al;
   
   
   public QuestPlayerTypeImpl(){
       
   }
-  //public QuestPlayerTypeImpl(String description) throws ClassNotFoundException, SQLException{
-  //    addPlayerType(description);
-  //}
+  
   
   public QuestPlayerTypeImpl(String name, int age, int playerType) throws FileNotFoundException, IOException, Exception{
       super(name,age,playerType);
@@ -51,10 +49,6 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
   
   public final void addPlayerType(String description)throws ClassNotFoundException, SQLException{
       if(description!= null && !description.isEmpty()){
-        
-        
-        //Class.forName(QuestConfiguration.getDatabaseClass());
-        //Connection c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
         PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertPlayerType());        
         s.setString(1, description);     
         s.execute();
@@ -70,9 +64,6 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
       int retval = -1;
       if(description!= null && !description.isEmpty()){
         
-        
-        //Class.forName(QuestConfiguration.getDatabaseClass());
-        //Connection c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
         PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertPlayerType());        
         PreparedStatement s1 = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertPlayerTypeGetID());
          
@@ -94,25 +85,29 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
   }
 
 
-    public ArrayList<PlayerType> getAll()  throws ClassNotFoundException, SQLException{
+    public ArrayList<QuestPlayer> getAllPlayers()  throws ClassNotFoundException, SQLException{
        String sqlstr;            
        
        
-       al = new ArrayList<PlayerType>();     
-           
-       //Class.forName(QuestConfiguration.getDatabaseClass());
-       //Connection c = DriverManager.getConnection(QuestConfiguration.getDatabaseName());
+       al = new ArrayList<QuestPlayer>();                
+      
        Statement s = DatabaseConnection.getConnection().createStatement();
        
-       sqlstr = Queries.getSelectPlayerType();
+       sqlstr = Queries.getSelectAllPlayers();
        ResultSet rs = s.executeQuery(sqlstr);
        
-       if(rs != null){
-           rs.next();
-           PlayerType p = new PlayerType();
-           p.setType(rs.getInt(1));
-           p.setDescription(rs.getNString(2));           
-           al.add(p);
+       while(rs.next()){
+           
+           QuestPlayer qp = new QuestPlayer();
+           
+           qp.setPlayerNumber(rs.getInt("PLAYERID"));
+           qp.setName(rs.getString("NAME"));
+           qp.setAge(rs.getInt("AGE"));
+           qp.setType(rs.getInt("PLAYERTYPE"));
+           qp.setHealth(rs.getInt("HEALTH"));
+           qp.setResources(rs.getInt("RESOURCES"));
+           qp.setAmountOfGold(rs.getInt("GOLD"));
+           al.add(qp);
        }
       
        rs.close();
@@ -155,7 +150,8 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
         return qp;
         
     }
-  
+    
+    
 
     
     

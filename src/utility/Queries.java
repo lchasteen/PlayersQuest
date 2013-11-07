@@ -65,7 +65,14 @@ public class Queries {
     private static final String insertLevel = "INSERT INTO LEVEL (LEVEL, LEVEL_VALUE) VALUES (?,?)";
     private static final String insertPlayer = "INSERT INTO PLAYER (NAME, AGE, PLAYERTYPE, LEVELID, HEALTH, RESOURCES, GOLD) VALUES (?,?,?,?,?,?,?)";
     private static final String selectPlayer = "SELECT PLAYERID, NAME, AGE, PLAYERTYPE, LEVELID, HEALTH, RESOURCES, GOLD FROM PLAYER WHERE PLAYERID = ?";
+    private static final String selectAllPlayers = "SELECT PLAYERID, NAME, AGE, PLAYERTYPE, LEVELID, HEALTH, RESOURCES, GOLD FROM PLAYER";
 
+    public static String getSelectAllPlayers() {
+        return selectAllPlayers;
+    }
+
+    
+    
     public static String getSelectPlayer() {
         return selectPlayer;
     }
