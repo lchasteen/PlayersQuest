@@ -5,6 +5,7 @@
 package playersquest;
 
 
+import file.GameFile;
 import impl.QuestionAnswerConsequenceImpl;
 import impl.QuestPlayerImpl;
 import eventhandler.QuestListener;
@@ -39,7 +40,7 @@ public class PlayersQuest {
     private QuestConfiguration configuration;
     private Logger log;
     private FileHandler fileHandler;
-    private GameData cons;
+    private GameFile cons;
     private QuestionAnswerConsequenceImpl ques;
     
     private ArrayList<QuestPlayerImpl> pl;
@@ -194,6 +195,11 @@ public class PlayersQuest {
               while(it.hasNext()){
                   System.out.println((QuestPlayer) it.next());
               }
+              
+              QuestionAnswerConsequenceImpl qaci = new QuestionAnswerConsequenceImpl();
+              
+              qaci.createTables();
+              qaci.addQAC(1,"dokey", "answer dookey", "consequence die", 101);
               
               
               

@@ -2,19 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package playersquest;
+package file;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import utility.SimpleFile;
 
 /**
  *
  * @author Lane
  */
-public class GameData extends SimpleFile{    
+public class GameFile extends SimpleFile{    
     private ArrayList<ArrayList<String>> listOfData;
     private int arrayListTracker = 0;
     private int arrayValueTracker = 0;
@@ -26,7 +25,7 @@ public class GameData extends SimpleFile{
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public GameData (String fileName) throws FileNotFoundException, IOException{
+    public GameFile (String fileName) throws FileNotFoundException, IOException{
         super(fileName);     
         this.getListOfData();
     }
@@ -44,6 +43,7 @@ public class GameData extends SimpleFile{
         }//while((temp = this.getData()) != null){
         return maxValue;
     }
+    
     
     /*
      * This method loads the ArrayList with string values for consequences.
@@ -71,7 +71,7 @@ public class GameData extends SimpleFile{
             }//while((temp = this.getData()) != null){        
         }//if(maxArrayValue > 0){
     }    
-    
+  /*  
     public String getNextRandomGameData()throws IndexOutOfBoundsException{
         return this.getNextRandomGameData(this.arrayListTracker + 1);
     }
@@ -87,11 +87,8 @@ public class GameData extends SimpleFile{
         }
         return null;
     }
-
+*/
     
-    /*
-     * This method gets the specified consequence based on the location in the game.
-     */
     /**
      *
      * @param locationInGame
@@ -99,6 +96,8 @@ public class GameData extends SimpleFile{
      * @return
      * @throws IndexOutOfBoundsException
      */
+    
+    /*
     public String getGameData(int locationInGame, int dataPosition) throws IndexOutOfBoundsException {                
         
         if(!listOfData.isEmpty() && listOfData.size() > 0 
@@ -112,6 +111,7 @@ public class GameData extends SimpleFile{
         }        
         return null;      
     }
+    */
     
     /**
      *

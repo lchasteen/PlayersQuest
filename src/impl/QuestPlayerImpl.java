@@ -138,19 +138,15 @@ public class QuestPlayerImpl {
         this.listener = listener;
     }
 
-    /**
-     *
-     */
-    public void getQuestion() {
-        this.listener.processGameResponse("("+ String.valueOf(thisQuestion.getQuestionNumber()) + ") " +this.characterName + ": " + thisQuestion.getQuestion() + " ");
-    }
-
+    
     /**
      *
      * @return @throws IndexOutOfBoundsException 
      * @throws IndexOutOfBoundsException
      * @throws Exception
      */
+    
+    /*
     public boolean getNextQuestion() throws IndexOutOfBoundsException, Exception {
         boolean res = thisQuestion.getNextQuestion();
         return res;
@@ -161,6 +157,7 @@ public class QuestPlayerImpl {
         boolean res = thisQuestion.getNextQuestion();
         return res;
     }
+     */
     
     
 
@@ -177,21 +174,7 @@ public class QuestPlayerImpl {
      }
      * 
      */
-    /**
-     *
-     * @param response
-     */
-    public void setResponse(String response) {
-        if (thisQuestion.compareAnswer(response)) {
-            this.listener.processGameResponse("CORRECT! " + this.characterName + "\n");
-        } else {
-            this.listener.processGameResponse("INCORRECT!");
-            this.setConsequenceCode(thisQuestion.getConsequenceValue());
-            this.listener.processGameResponse(thisQuestion.getConsequence() + "\n");
-        }
-
-    }
-
+    
     /**
      *
      */

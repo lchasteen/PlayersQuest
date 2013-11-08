@@ -6,54 +6,171 @@ package impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import playersquest.GameData;
+import file.GameFile;
+import utility.DatabaseConnection;
+import utility.Queries;
 
 
 /**
  *
  * @author Lane
  */
-public class QuestionAnswerConsequenceImpl extends GameData{
+public class QuestionAnswerConsequenceImpl {
     
-    private String thisQuestion;
-    private String thisAnswer;
-    private String thisPosition;
-    private String thisConsequence;
-    private int thisConsequenceValue;    
-    private GameData cons;
-    private ArrayList<Integer>dontAskTheseAgain;   
-    private int questionNumber = 0;
+    
+    
+    
 
-
+    public QuestionAnswerConsequenceImpl(){
+        
+    }
     /**
      *
      * @param fileName
      */
-    public QuestionAnswerConsequenceImpl(String questionFileName, String consequenceFileName) throws FileNotFoundException, IOException {
-        super(questionFileName);
-        cons = new GameData(consequenceFileName);
-        dontAskTheseAgain = new ArrayList<Integer>();
+    public QuestionAnswerConsequenceImpl(String questionFileName, String consequenceFileName) throws FileNotFoundException, IOException, SQLException {
+        //super(questionFileName);
+        //cons = new GameFile(consequenceFileName);
+        //dontAskTheseAgain = new ArrayList<Integer>();
+        
     }
     
-    public boolean getNextRandomQuestion(int positionInGame){
-        
+    public boolean getNextRandomQuestion(int positionInGame){        
         if(positionInGame < 1){
             return false;
-        }//if(positionInGame < 1){
-        
+        }//if(positionInGame < 1){        
         return true;
     }
     
-    /**
-     * This method returns the data number associated with the data.
-     * 
-     * @return integer
-     */
-    public int getQuestionNumber(){
-        return this.questionNumber;
+    
+    
+    
+    public void addQAC(int level, String question, String answer, String consequence, int consequenceID) throws SQLException, Exception{
+        int ques, ans, con, consID;
+        ques = addQuestion(question);
+        System.out.println(ques);
+        
+        ans = addAnswer(answer,ques);
+        System.out.println(ans);
+        
+        con = addConsequence(consequence, consequenceID);        
+        System.out.println(con);
+  
+        PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertQAC());        
+        
+        s.setInt(1, level);     
+        s.setInt(2, ques);
+        s.setInt(3, con);
+        s.setInt(4, ans);
+
+        
+        s.execute();        
+        s.close();
+        
     }
     
+    private int addQuestion(String question) throws SQLException, Exception{        
+      int retval = -1;
+      
+      if(question!= null && !question.isEmpty()){
+        
+        PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertQuestion());        
+        PreparedStatement s1 = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertQuestionTypeGetID());
+         
+        s.setString(1, question);     
+        s.execute();
+        
+        ResultSet rs =  s1.executeQuery();
+        while(rs.next()){
+            retval = rs.getInt("LAST_ID");
+        }
+        rs.close();
+        s.close();
+        s1.close();
+        //c.close();
+      } else {          
+          throw new Exception("Invalid question!");
+      }
+        return retval;
+        
+    }
+    
+    private int addAnswer(String answer, int question) throws SQLException, Exception{
+      int retval = -1;
+      
+      if(answer!= null && !answer.isEmpty()){
+        
+        PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertAnswer());        
+        PreparedStatement s1 = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertAnswerTypeGetID());
+         
+        s.setString(1, answer);     
+        s.setInt(2, question);
+        s.execute();
+        
+        ResultSet rs =  s1.executeQuery();
+        while(rs.next()){
+            retval = rs.getInt("LAST_ID");
+        }
+        rs.close();
+        s.close();
+        s1.close();        
+      } else {          
+          throw new Exception("Invalid answer!");
+      }
+        return retval;
+    }
+    
+    private int addConsequence(String consequence, int consequenceValue) throws SQLException, Exception{
+          int retval = -1;
+      
+      if(consequence!= null && !consequence.isEmpty() && consequenceValue > 0){
+        
+        PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertConsequence());        
+        PreparedStatement s1 = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertConsequenceTypeGetID());
+         
+        s.setString(1,consequence);     
+        s.setInt(2,consequenceValue);
+        s.execute();
+        
+        ResultSet rs =  s1.executeQuery();
+        while(rs.next()){
+            retval = rs.getInt("LAST_ID");
+        }
+        rs.close();
+        s.close();
+        s1.close();
+        //c.close();
+      } else {          
+          throw new Exception("Invalid consequence!");
+      }
+        return retval;
+    }
+    
+    
+    public void createTables() throws SQLException{
+        
+        PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getCreateQuestionTable());        
+        PreparedStatement s1 = DatabaseConnection.getConnection().prepareStatement(Queries.getCreateAnswerTable());
+        PreparedStatement s2 = DatabaseConnection.getConnection().prepareStatement(Queries.getCreateConsequenceTable());
+        PreparedStatement s3 = DatabaseConnection.getConnection().prepareStatement(Queries.getCreateQuestionAnswerConsequenceTable());
+        
+        s.execute();
+        s1.execute();
+        s2.execute();
+        s3.execute();
+        
+        s.close();
+        s1.close();
+        s2.close();
+        s3.close();
+    }
+    
+  
+    /*
     public boolean getNextQuestion()throws IndexOutOfBoundsException, Exception{
         String getOnlyQuestion[];
         String rawData;
@@ -84,56 +201,11 @@ public class QuestionAnswerConsequenceImpl extends GameData{
         }//if(getOnlyQuestion != null && getOnlyQuestion.length > 2)                
         return true;        
     }
-    
-    public String getAnswer(){
-        return this.thisAnswer;
-    }
-    
-    public String getQuestion(){
-        return this.thisQuestion;
-    }
-    
-    public int getPosition() throws NumberFormatException {
-        return Integer.parseInt(this.thisPosition);
-    }
-    
-    public String getConsequence(){
-        return this.thisConsequence;
-    }
-    
-    public int getConsequenceValue(){
-        return this.thisConsequenceValue;
-    }
-    
-    private boolean getConsequenceForQuestion(int tPosition) throws IndexOutOfBoundsException, NumberFormatException {
-        String tstr;
-        String tsplit[];
-        tstr = this.cons.getNextRandomGameData(tPosition);
-        if(tstr != null && !tstr.isEmpty()){
-            tsplit = tstr.split(";");
-            if(tsplit != null && tsplit.length > 1){
-                if(tsplit.length > 2){
-                    this.thisConsequenceValue = Integer.parseInt(tsplit[2]);
-                    this.thisConsequence = tsplit[1];
-                    return true;
-                }//if(tsplit.length > 2){
-            }//if(tsplit != null && tsplit.length > 1){
-        }//if(tstr != null && !tstr.isEmpty()){
-        return false;
-    }
+    */
+   
     
     
     
-    public boolean compareAnswer(String answer){        
-        if(answer != null && !answer.isEmpty() && thisAnswer != null && !thisAnswer.isEmpty()){            
-            if(thisAnswer.equalsIgnoreCase(answer)){
-                dontAskTheseAgain.add(new Integer(this.getQuestionNumber()));
-                System.out.println(this.dontAskTheseAgain.toString());
-                return true;
-            }//if(thisAnswer.equalsIgnoreCase(answer)){            
-        }//if(answer != null && !answer.isEmpty() && thisAnswer != null && !thisAnswer.isEmpty()){                        
-        return false;
-    }
     
    
     

@@ -6,18 +6,16 @@ package impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import model.PlayerType;
+
 import model.QuestPlayer;
 import utility.DatabaseConnection;
 import utility.Queries;
-import utility.QuestConfiguration;
+
 
 /**
  *
@@ -47,7 +45,7 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
   
   
   
-  public final void addPlayerType(String description)throws ClassNotFoundException, SQLException{
+  public final void addPlayerType(String description)throws ClassNotFoundException, SQLException, Exception{
       if(description!= null && !description.isEmpty()){
         PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertPlayerType());        
         s.setString(1, description);     
@@ -55,12 +53,12 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
         s.close();
         //c.close();
       } else {          
-          throw new SQLException("Invalid Player Type!");
+          throw new Exception("Invalid Player Type!");
       }
   }
   
   
-  public final int addPlayerTypeGetID(String description)throws ClassNotFoundException, SQLException{
+  public final int addPlayerTypeGetID(String description)throws ClassNotFoundException, SQLException, Exception{
       int retval = -1;
       if(description!= null && !description.isEmpty()){
         
@@ -79,7 +77,7 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
         s1.close();
         //c.close();
       } else {          
-          throw new SQLException("Invalid Player Type!");
+          throw new Exception("Invalid Player Type!");
       }
         return retval;
   }
@@ -116,7 +114,7 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
        return al;
     }
     
-    public final void createPlayerTypeTable() throws ClassNotFoundException, SQLException{
+    public final void createPlayerTypeTable() throws ClassNotFoundException, SQLException, Exception{
         
         String[] characterName = {"Knight", "Nobleman","Healer","Thief","Wizzard"};
         
