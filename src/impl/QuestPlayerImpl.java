@@ -41,21 +41,21 @@ public class QuestPlayerImpl {
      * @param consequenceFileName
      * @throws FileNotFoundException
      * @throws IOException
-     * @throws Exception
+     * @throws IllegalArgumentException
      */
     public QuestPlayerImpl(){
         
     }
-    public QuestPlayerImpl(String name, int age, int playerType) throws FileNotFoundException, IOException, Exception {
+    public QuestPlayerImpl(String name, int age, int playerType) throws FileNotFoundException, IOException, IllegalArgumentException, SQLException {
        addNewPlayer(name,age,playerType);
 
     }
     
-    public QuestPlayerImpl(QuestPlayer qp) throws FileNotFoundException, IOException, Exception {
+    public QuestPlayerImpl(QuestPlayer qp) throws FileNotFoundException, IOException, IllegalArgumentException, SQLException {
         addNewPlayer(qp);
     }
     
-    public final void addNewPlayer(QuestPlayer qp) throws FileNotFoundException, IOException, Exception {
+    public final void addNewPlayer(QuestPlayer qp) throws FileNotFoundException, IOException, IllegalArgumentException, SQLException {
       if(qp != null){        
         
         //Class.forName(QuestConfiguration.getDatabaseClass());
@@ -77,26 +77,26 @@ public class QuestPlayerImpl {
       }   
     }
     
-    public void addNewPlayer(String name,int age, int playerType) throws FileNotFoundException, IOException, Exception {
+    public void addNewPlayer(String name,int age, int playerType) throws FileNotFoundException, IOException, IllegalArgumentException, SQLException {
         QuestPlayer qc = new QuestPlayer();
        
         if (name != null && !name.isEmpty()) {
                 qc.setName(this.getProperName(name));
         }
         else{            
-            throw new Exception("Invalid name.");
+            throw new IllegalArgumentException("Invalid name.");
         }
         if (age > 0){
             qc.setAge(age);
         }
         else{            
-            throw new Exception("Invalid age. Player's age must be greater than zero.");
+            throw new IllegalArgumentException("Invalid age. Player's age must be greater than zero.");
         }
         if(playerType > 0){
             qc.setType(playerType);
         }
         else {
-            throw new Exception("Invalid player type.");
+            throw new IllegalArgumentException("Invalid player type.");
         }
                    
         qc.setHealth(QuestConfiguration.getHealth());
@@ -129,11 +129,11 @@ public class QuestPlayerImpl {
     /**
      *
      * @param listener
-     * @throws Exception
+     * @throws IllegalArgumentException
      */
-    public void setListener(QuestListener listener) throws Exception {
+    public void setListener(QuestListener listener) throws IllegalArgumentException {
         if (listener == null) {
-            throw new Exception("Method:= setListener, QuestListener must not be null!");
+            throw new IllegalArgumentException("Method:= setListener, QuestListener must not be null!");
         }
         this.listener = listener;
     }
@@ -143,17 +143,17 @@ public class QuestPlayerImpl {
      *
      * @return @throws IndexOutOfBoundsException 
      * @throws IndexOutOfBoundsException
-     * @throws Exception
+     * @throws IllegalArgumentException
      */
     
     /*
-    public boolean getNextQuestion() throws IndexOutOfBoundsException, Exception {
+    public boolean getNextQuestion() throws IndexOutOfBoundsException, IllegalArgumentException {
         boolean res = thisQuestion.getNextQuestion();
         return res;
     }
     
     
-    public boolean getNextRandomQuestion() throws IndexOutOfBoundsException, Exception {
+    public boolean getNextRandomQuestion() throws IndexOutOfBoundsException, IllegalArgumentException {
         boolean res = thisQuestion.getNextQuestion();
         return res;
     }

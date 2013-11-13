@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import model.QuestionAnswerConsequence;
 
 /**
  *
@@ -121,22 +122,19 @@ public class GameFile extends SimpleFile{
     public String getNextGameData()throws IndexOutOfBoundsException{
         String strRet;        
         
-        //if(listOfData.size() )
-        //if(this.arrayListTracker >= (listOfData.size()) || (this.arrayValueTracker >= listOfData.get(arrayListTracker).size())){
+        
         if(!hasNext()){
             return null;
         }
-        //System.out.println("List:[" + String.valueOf(arrayListTracker) + "] Value:[" + String.valueOf(arrayValueTracker) + "]");
+        
         strRet = listOfData.get(this.arrayListTracker).get(this.arrayValueTracker);
+    
+        
         
         if(this.arrayValueTracker >= (listOfData.get(this.arrayListTracker).size() - 1)){
             this.arrayValueTracker = 0;
             this.arrayListTracker++;        
-            /*if(this.arrayListTracker >= (listOfData.size())){
-                this.arrayListTracker = 0;
-                
-            }//if(this.arrayListTracker >= (listOfData.size())){
-            */
+            
         }else{
             this.arrayValueTracker++;    
             
@@ -145,6 +143,34 @@ public class GameFile extends SimpleFile{
         return strRet;      
     }
     
+    public QuestionAnswerConsequence getNextQuestionAnswerConsequence()throws IndexOutOfBoundsException, IllegalArgumentException{
+        String strRet = null;
+        QuestionAnswerConsequence qac = null;        
+        
+        if(!hasNext() ){
+            return null;
+        }        
+        strRet = getNextGameData();
+        
+        if(strRet == null ){
+            return null;
+        }        
+        
+        String strRetArray[] = strRet.split(";");        
+        if(strRetArray.length >= 5 ){
+            qac = new QuestionAnswerConsequence();
+            qac.setLevelID(Integer.valueOf(strRetArray[0]));
+            qac.setQuestion(strRetArray[1]);
+            qac.setAnswer(strRetArray[2]);
+            qac.setConsequence(strRetArray[3]);
+            qac.setConsequenceValue(Integer.valueOf(strRetArray[4]));
+        }else{
+            throw new IllegalArgumentException("Class:GameFile Method:getNextQuestionAnswerConsequence(); Row in file is not in right format!");
+        }
+            
+        return qac;
+        
+    }
     /**
      *
      * @return

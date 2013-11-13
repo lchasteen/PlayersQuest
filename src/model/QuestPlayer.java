@@ -38,9 +38,8 @@ public class QuestPlayer extends PlayerType{
     @Override
     public String toString(){
      String tString = null;
-     if(this.getName()!= null){
-        tString = "Name:[" + this.getName() + "] ";
-     }
+     
+     tString = "Name:[" + this.getName() + "] ";     
      tString += "Player Type:[" + String.valueOf(this.getType())+ "] ";
      tString += "Age:[" + String.valueOf(this.getAge()) + "] ";       
      tString += "Level:[" + String.valueOf(this.getLevel()) + "] ";

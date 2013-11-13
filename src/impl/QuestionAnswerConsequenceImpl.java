@@ -11,8 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import file.GameFile;
+import model.QuestionAnswerConsequence;
 import utility.DatabaseConnection;
 import utility.Queries;
+import utility.QuestConfiguration;
 
 
 /**
@@ -46,10 +48,16 @@ public class QuestionAnswerConsequenceImpl {
         return true;
     }
     
+    public void addQAC(QuestionAnswerConsequence qac) throws SQLException, IllegalArgumentException{
+        if(qac != null){
+            addQAC(qac.getLevelID(),qac.getQuestion(),qac.getAnswer(),qac.getConsequence(),qac.getConsequenceValue());
+        }else{
+            throw new IllegalArgumentException("Class:QuestionAnswerConsequenceImpl Method:addQAC(QuestionAnswerConsequence); QAC Argument is null!");
+        }
+    }
     
     
-    
-    public void addQAC(int level, String question, String answer, String consequence, int consequenceID) throws SQLException, Exception{
+    public void addQAC(int level, String question, String answer, String consequence, int consequenceID) throws SQLException, IllegalArgumentException{
         int ques, ans, con, consID;
         ques = addQuestion(question);
         System.out.println(ques);
@@ -73,7 +81,7 @@ public class QuestionAnswerConsequenceImpl {
         
     }
     
-    private int addQuestion(String question) throws SQLException, Exception{        
+    private int addQuestion(String question) throws SQLException, IllegalArgumentException{        
       int retval = -1;
       
       if(question!= null && !question.isEmpty()){
@@ -93,13 +101,13 @@ public class QuestionAnswerConsequenceImpl {
         s1.close();
         //c.close();
       } else {          
-          throw new Exception("Invalid question!");
+          throw new IllegalArgumentException("Invalid question!");
       }
         return retval;
         
     }
     
-    private int addAnswer(String answer, int question) throws SQLException, Exception{
+    private int addAnswer(String answer, int question) throws SQLException, IllegalArgumentException{
       int retval = -1;
       
       if(answer!= null && !answer.isEmpty()){
@@ -119,12 +127,12 @@ public class QuestionAnswerConsequenceImpl {
         s.close();
         s1.close();        
       } else {          
-          throw new Exception("Invalid answer!");
+          throw new IllegalArgumentException("Invalid answer!");
       }
         return retval;
     }
     
-    private int addConsequence(String consequence, int consequenceValue) throws SQLException, Exception{
+    private int addConsequence(String consequence, int consequenceValue) throws SQLException, IllegalArgumentException{
           int retval = -1;
       
       if(consequence!= null && !consequence.isEmpty() && consequenceValue > 0){
@@ -145,7 +153,7 @@ public class QuestionAnswerConsequenceImpl {
         s1.close();
         //c.close();
       } else {          
-          throw new Exception("Invalid consequence!");
+          throw new IllegalArgumentException("Invalid consequence!");
       }
         return retval;
     }
@@ -169,9 +177,19 @@ public class QuestionAnswerConsequenceImpl {
         s3.close();
     }
     
+    public void populateQuestionAnswerTables() throws SQLException, FileNotFoundException, IOException {
+        GameFile gf = new GameFile(QuestConfiguration.getQuestionsFile());
+        //gf.
+        while(gf.hasNext()){
+            //System.out.println(gf.getNextQuestionAnswerConsequence().toString());
+            this.addQAC(gf.getNextQuestionAnswerConsequence());
+            
+        }
+    }
+    
   
     /*
-    public boolean getNextQuestion()throws IndexOutOfBoundsException, Exception{
+    public boolean getNextQuestion()throws IndexOutOfBoundsException, IllegalArgumentException{
         String getOnlyQuestion[];
         String rawData;
         
@@ -196,7 +214,7 @@ public class QuestionAnswerConsequenceImpl {
             thisAnswer = getOnlyQuestion[2].trim();
             this.questionNumber++;
             if(!getConsequenceForQuestion(getPosition())){
-                throw new Exception("Method:= getNextQuestion, error getting consequence! POS:=" + this.thisPosition);
+                throw new IllegalArgumentException("Method:= getNextQuestion, error getting consequence! POS:=" + this.thisPosition);
             }
         }//if(getOnlyQuestion != null && getOnlyQuestion.length > 2)                
         return true;        

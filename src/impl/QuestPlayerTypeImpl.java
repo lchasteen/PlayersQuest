@@ -30,22 +30,22 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
   }
   
   
-  public QuestPlayerTypeImpl(String name, int age, int playerType) throws FileNotFoundException, IOException, Exception{
+  public QuestPlayerTypeImpl(String name, int age, int playerType) throws FileNotFoundException, IOException, IllegalArgumentException, SQLException{
       super(name,age,playerType);
   }
   
-  public QuestPlayerTypeImpl(String name, int age, String playerDescription) throws FileNotFoundException, IOException, Exception{
+  public QuestPlayerTypeImpl(String name, int age, String playerDescription) throws FileNotFoundException, IOException, IllegalArgumentException, ClassNotFoundException, SQLException{
       addPlayerTypeDescription(name,age,playerDescription);
   }
   
-  public final void addPlayerTypeDescription(String name, int age, String playerDescription) throws ClassNotFoundException, SQLException, FileNotFoundException, IOException, Exception{
+  public final void addPlayerTypeDescription(String name, int age, String playerDescription) throws ClassNotFoundException, SQLException, FileNotFoundException, IOException, IllegalArgumentException{
       int retval = addPlayerTypeGetID(playerDescription);      
       this.addNewPlayer(name, age, retval);      
   }
   
   
   
-  public final void addPlayerType(String description)throws ClassNotFoundException, SQLException, Exception{
+  public final void addPlayerType(String description)throws ClassNotFoundException, SQLException, IllegalArgumentException{
       if(description!= null && !description.isEmpty()){
         PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertPlayerType());        
         s.setString(1, description);     
@@ -53,12 +53,12 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
         s.close();
         //c.close();
       } else {          
-          throw new Exception("Invalid Player Type!");
+          throw new IllegalArgumentException("Invalid Player Type!");
       }
   }
   
   
-  public final int addPlayerTypeGetID(String description)throws ClassNotFoundException, SQLException, Exception{
+  public final int addPlayerTypeGetID(String description)throws ClassNotFoundException, SQLException, IllegalArgumentException{
       int retval = -1;
       if(description!= null && !description.isEmpty()){
         
@@ -77,7 +77,7 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
         s1.close();
         //c.close();
       } else {          
-          throw new Exception("Invalid Player Type!");
+          throw new IllegalArgumentException("Invalid Player Type!");
       }
         return retval;
   }
@@ -114,7 +114,7 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
        return al;
     }
     
-    public final void createPlayerTypeTable() throws ClassNotFoundException, SQLException, Exception{
+    public final void createPlayerTypeTable() throws ClassNotFoundException, SQLException, IllegalArgumentException{
         
         String[] characterName = {"Knight", "Nobleman","Healer","Thief","Wizzard"};
         
