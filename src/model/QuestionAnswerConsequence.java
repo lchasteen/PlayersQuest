@@ -8,46 +8,20 @@ package model;
  *
  * @author lchastee
  */
-public class QuestionAnswerConsequence {
-    private String Question, Answer, Consequence;    
-    private int questionID;
-    private int answerID;
-    private int consequenceID;
-    private int consequenceValue;
+public class QuestionAnswerConsequence extends Consequence {
+   
     private int levelID; // QuestionAnswerConsequence level: > numbers = harder questions.
+    private int qacID;
 
-    public int getConsequenceValue() {
-        return consequenceValue;
+    public int getQACID() {
+        return qacID;
     }
 
-    public void setConsequenceValue(int consequenceValue) {
-        this.consequenceValue = consequenceValue;
+    public void setQACID(int qacID) {
+        this.qacID = qacID;
     }
-
     
-    public String getQuestion() {
-        return Question;
-    }
-
-    public void setQuestion(String Question) {
-        this.Question = Question;
-    }
-
-    public String getAnswer() {
-        return Answer;
-    }
-
-    public void setAnswer(String Answer) {
-        this.Answer = Answer;
-    }
-
-    public String getConsequence() {
-        return Consequence;
-    }
-
-    public void setConsequence(String Consequence) {
-        this.Consequence = Consequence;
-    }
+    
 
     
     public int getLevelID() {
@@ -58,30 +32,6 @@ public class QuestionAnswerConsequence {
         this.levelID = levelID;
     }
 
-
-    public int getQuestionID() {
-        return questionID;
-    }
-
-    public void setQuestionID(int questionID) {
-        this.questionID = questionID;
-    }
-
-    public int getAnswerID() {
-        return answerID;
-    }
-
-    public void setAnswerID(int answerID) {
-        this.answerID = answerID;
-    }
-
-    public int getConsequenceID() {
-        return consequenceID;
-    }
-
-    public void setConsequenceID(int consequenceID) {
-        this.consequenceID = consequenceID;
-    }
     
     @Override
     public String toString(){

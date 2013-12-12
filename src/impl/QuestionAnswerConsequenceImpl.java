@@ -57,16 +57,26 @@ public class QuestionAnswerConsequenceImpl {
     }
     
     
-    public void addQAC(int level, String question, String answer, String consequence, int consequenceID) throws SQLException, IllegalArgumentException{
+    public QuestionAnswerConsequence getQAC(int qacID) throws SQLException{
+        QuestionAnswerConsequence qac = new QuestionAnswerConsequence();
+        PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getSelectQAC());                
+        s.setInt(1, qacID);     
+        ResultSet rs =  s.executeQuery();
+        
+        while(rs.next()){
+            //qac.set
+        }
+        s.close();
+        return null;
+    }
+    
+    private void addQAC(int level, String question, String answer, String consequence, int consequenceID) throws SQLException, IllegalArgumentException{
         int ques, ans, con, consID;
-        ques = addQuestion(question);
-        System.out.println(ques);
+        ques = addQuestion(question);        
         
-        ans = addAnswer(answer,ques);
-        System.out.println(ans);
+        ans = addAnswer(answer,ques);        
         
-        con = addConsequence(consequence, consequenceID);        
-        System.out.println(con);
+        con = addConsequence(consequence, consequenceID);                
   
         PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getInsertQAC());        
         
@@ -107,7 +117,14 @@ public class QuestionAnswerConsequenceImpl {
         
     }
     
-    private int addAnswer(String answer, int question) throws SQLException, IllegalArgumentException{
+    
+    public String getAnswer(int answerID) throws SQLException, IllegalArgumentException{
+        String answer = null;
+        
+        return answer;
+    }
+    
+    public int addAnswer(String answer, int question) throws SQLException, IllegalArgumentException{
       int retval = -1;
       
       if(answer!= null && !answer.isEmpty()){
@@ -180,10 +197,8 @@ public class QuestionAnswerConsequenceImpl {
     public void populateQuestionAnswerTables() throws SQLException, FileNotFoundException, IOException {
         GameFile gf = new GameFile(QuestConfiguration.getQuestionsFile());
         //gf.
-        while(gf.hasNext()){
-            //System.out.println(gf.getNextQuestionAnswerConsequence().toString());
-            this.addQAC(gf.getNextQuestionAnswerConsequence());
-            
+        while(gf.hasNext()){    
+            this.addQAC(gf.getNextQuestionAnswerConsequence());            
         }
     }
     

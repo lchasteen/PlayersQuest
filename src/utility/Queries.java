@@ -52,7 +52,7 @@ public class Queries {
             + " LEVELID         INTEGER         NOT NULL,"
             + " QUESTIONID      INTEGER         NOT NULL,"
             + " CONSEQUENCEID   INTEGER         NOT NULL,"
-            + " ANSWERID        INTEGER         NOT NULL,"
+            + " ANSWERID        INTEGER         NOT NULL,"  
             + " FOREIGN KEY(LEVELID) REFERENCES LEVEL(LEVELID),"
             + " FOREIGN KEY(QUESTIONID) REFERENCES QUESTION(QUESTIONID),"
             + " FOREIGN KEY(CONSEQUENCEID) REFERENCES CONSEQUENCE(CONSEQUENCEID),"
@@ -60,21 +60,47 @@ public class Queries {
             
                 
     
-    private static final String selectPlayerType = "SELECT TYPEID, DESCRIPTION FROM PLAYERTYPE";    
+    private static final String selectPlayerType = "SELECT TYPEID, DESCRIPTION FROM PLAYERTYPE";
+    
     private static final String insertPlayerType = "INSERT INTO PLAYERTYPE (DESCRIPTION) VALUES (?)";
     private static final String insertPlayerTypeGetID = "SELECT LAST_INSERT_ROWID() AS LAST_ID FROM PLAYERTYPE";
     private static final String insertAnswerTypeGetID = "SELECT LAST_INSERT_ROWID() AS LAST_ID FROM ANSWER";
     private static final String insertQuestionTypeGetID = "SELECT LAST_INSERT_ROWID() AS LAST_ID FROM QUESTION";
+    
     private static final String insertConsequenceTypeGetID = "SELECT LAST_INSERT_ROWID() AS LAST_ID FROM CONSEQUENCE";
+    
     private static final String insertAnswer = "INSERT INTO ANSWER (ANSWER, QUESTIONID) VALUES (?,?)";
+    private static final String selectAnswer = "SELECT ANSWER, QUESTIONID FROM ANSWER WHERE ANSWERID = ?";
+    
+    private static final String selectQuestion = "SELECT QUESTION FROM QUESTION WHERE QUESTIONID = ?";
     private static final String insertQuestion = "INSERT INTO QUESTION (QUESTION) VALUES (?)";
+    
+    private static final String selectConsequence = "SELECT CONSEQUENCE, CONSEQUENCEVALUE FROM CONSEQUENCE WHERE CONSEQUENCEID = ?";
     private static final String insertConsequence = "INSERT INTO CONSEQUENCE (CONSEQUENCE, CONSEQUENCEVALUE) VALUES (?,?)";
     private static final String insertQAC = "INSERT INTO QAC (LEVELID, QUESTIONID, CONSEQUENCEID, ANSWERID) VALUES (?,?,?,?)";
     private static final String insertLevel = "INSERT INTO LEVEL (LEVEL, LEVEL_VALUE) VALUES (?,?)";
     private static final String insertPlayer = "INSERT INTO PLAYER (NAME, AGE, PLAYERTYPE, LEVELID, HEALTH, RESOURCES, GOLD) VALUES (?,?,?,?,?,?,?)";
     private static final String selectPlayer = "SELECT PLAYERID, NAME, AGE, PLAYERTYPE, LEVELID, HEALTH, RESOURCES, GOLD FROM PLAYER WHERE PLAYERID = ?";
     private static final String selectAllPlayers = "SELECT PLAYERID, NAME, AGE, PLAYERTYPE, LEVELID, HEALTH, RESOURCES, GOLD FROM PLAYER";
+    private static final String selectQAC = "SELECT LEVELID, QUESTIONID, CONSEQUENCEID, ANSWERID FROM QAC WHERE QACID = ?";
 
+    public static String getSelectAnswer() {
+        return selectAnswer;
+    }
+
+    public static String getSelectQuestion() {
+        return selectQuestion;
+    }
+
+    public static String getSelectConsequence() {
+        return selectConsequence;
+    }
+
+    public static String getSelectQAC() {
+        return selectQAC;
+    }
+
+    
     
     public static String getInsertAnswerTypeGetID() {
         return insertAnswerTypeGetID;

@@ -199,7 +199,7 @@ public class PlayersQuest {
               QuestionAnswerConsequenceImpl qaci = new QuestionAnswerConsequenceImpl();
               
               qaci.createTables();
-              qaci.addQAC(1,"dokey", "answer dookey", "consequence die", 101);
+              
               
               qaci.populateQuestionAnswerTables();
               
