@@ -14,6 +14,7 @@ public class QuestConfiguration {
     
     private final static String consequencesFile;
     private final static String questionsFile;
+    private final static String answerFile;
     private final static String logFile;
     private final static String databaseClass;
     private final static String databaseName;
@@ -29,6 +30,7 @@ public class QuestConfiguration {
          // ResourceBundle props = ResourceBundle.getBundle("resources.quest");                          
           props = ResourceBundle.getBundle("resources.quest");
           consequencesFile = props.getString("consequences_file");       
+          answerFile = props.getString("answer_file");
           questionsFile = props.getString("questions_file");
           logFile = props.getString("log_file");         
           databaseName = props.getString("database_name");
@@ -37,8 +39,14 @@ public class QuestConfiguration {
           resources = Integer.parseInt(props.getString("resources"));
           health = Integer.parseInt(props.getString("health"));
           startLevel = Integer.parseInt(props.getString("level"));
+          
     }
 
+    public static String getAnswerFile() {
+        return answerFile;
+    }
+
+    
     public static int getStartLevel() {
         return startLevel;
     }

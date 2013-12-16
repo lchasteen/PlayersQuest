@@ -198,14 +198,10 @@ public class PlayersQuest {
               
               QuestionAnswerConsequenceImpl qaci = new QuestionAnswerConsequenceImpl();
               
-              qaci.createTables();
-              
+              qaci.createTables();           
               
               qaci.populateQuestionAnswerTables();
-              
-              
-              
-              
+              qaci.populateAnswerTable();
               
               DatabaseConnection.closeConnection();
             /*

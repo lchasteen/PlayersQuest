@@ -4,6 +4,7 @@
  */
 package impl;
 
+import file.AnswerFile;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import file.GameFile;
+import model.Answer;
 import model.QuestionAnswerConsequence;
 import utility.DatabaseConnection;
 import utility.Queries;
@@ -124,6 +126,12 @@ public class QuestionAnswerConsequenceImpl {
         return answer;
     }
     
+    public int addAnwer(Answer answer)throws SQLException, IllegalArgumentException{
+        int retval = -1;
+        addAnswer(answer.getAnswer(), answer.getQuestionID());
+        return retval;
+    }
+    
     public int addAnswer(String answer, int question) throws SQLException, IllegalArgumentException{
       int retval = -1;
       
@@ -202,6 +210,15 @@ public class QuestionAnswerConsequenceImpl {
         }
     }
     
+    
+    public void populateAnswerTable() throws SQLException, FileNotFoundException, IOException {
+        AnswerFile af = new AnswerFile(QuestConfiguration.getAnswerFile());
+        //gf.
+        while(af.hasNext()){    
+            this.addAnwer(af.getNextAnswer());            
+        }
+    }
+
   
     /*
     public boolean getNextQuestion()throws IndexOutOfBoundsException, IllegalArgumentException{
