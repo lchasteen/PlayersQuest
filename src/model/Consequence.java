@@ -8,7 +8,7 @@ package model;
  *
  * @author lchastee
  */
-public class Consequence extends Answer {
+public class Consequence{
     private String Consequence;
     private int ConsequenceID;
     private int ConsequenceValue;
@@ -37,6 +37,17 @@ public class Consequence extends Answer {
         this.ConsequenceValue = ConsequenceValue;
     }
     
+    
+    @Override
+    public String toString(){
+        String retStr = null;
+        
+        
+        retStr = "Consequence ID:[" + this.getConsequenceID() +"] ";
+        retStr += "Consequence:[" + this.getConsequence() +"] ";
+        retStr += "Consequence Value:[" + this.getConsequenceValue() +"] ";        
+        return retStr;
+    }
     
     
 }

@@ -28,5 +28,14 @@ public class Question {
         this.QuestionID = QuestionID;
     }
     
-    
+ 
+    @Override
+    public String toString(){
+        String retStr = null;
+        
+        retStr = "Question ID:["+ this.getQuestionID() + "] ";
+        retStr += "Question:["+ this.getQuestion() + "] ";
+        
+        return retStr;
+    }
 }

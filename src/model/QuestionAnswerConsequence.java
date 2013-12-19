@@ -8,10 +8,39 @@ package model;
  *
  * @author lchastee
  */
-public class QuestionAnswerConsequence extends Consequence {
+public class QuestionAnswerConsequence {
    
     private int levelID; // QuestionAnswerConsequence level: > numbers = harder questions.
     private int qacID;
+    private Answer answer;
+    private Consequence consequence;
+    private Question question;
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
+    }
+
+    public Consequence getConsequence() {
+        return consequence;
+    }
+
+    public void setConsequence(Consequence consequence) {
+        this.consequence = consequence;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    
 
     public int getQACID() {
         return qacID;
@@ -37,13 +66,10 @@ public class QuestionAnswerConsequence extends Consequence {
     public String toString(){
         String retStr = null;
         
-        retStr = "Question ID:["+ this.getQuestionID() + "] ";
-        retStr += "Question:["+ this.getQuestion() + "] ";
-        retStr += "Answer ID:[" + this.getAnswerID() +"] ";
-        retStr += "Answer:[" + this.getAnswer() +"] ";
-        retStr += "Consequence ID:[" + this.getConsequenceID() +"] ";
-        retStr += "Consequence:[" + this.getConsequence() +"] ";
-        retStr += "Consequence Value:[" + this.getConsequenceValue() +"] ";        
+        retStr = question.toString();
+        retStr += answer.toString();
+        retStr += consequence.toString();
+        
         return retStr;
     }
     

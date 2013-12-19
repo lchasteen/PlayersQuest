@@ -71,6 +71,7 @@ public class Queries {
     
     private static final String insertAnswer = "INSERT INTO ANSWER (ANSWER, QUESTIONID) VALUES (?,?)";
     private static final String selectAnswer = "SELECT ANSWER, QUESTIONID FROM ANSWER WHERE ANSWERID = ?";
+    private static final String selectAllAnswers = "SELECT ANSWER, QUESTIONID FROM ANSWER WHERE QUESTIONID = ?";
     
     private static final String selectQuestion = "SELECT QUESTION FROM QUESTION WHERE QUESTIONID = ?";
     private static final String insertQuestion = "INSERT INTO QUESTION (QUESTION) VALUES (?)";
@@ -84,6 +85,11 @@ public class Queries {
     private static final String selectAllPlayers = "SELECT PLAYERID, NAME, AGE, PLAYERTYPE, LEVELID, HEALTH, RESOURCES, GOLD FROM PLAYER";
     private static final String selectQAC = "SELECT LEVELID, QUESTIONID, CONSEQUENCEID, ANSWERID FROM QAC WHERE QACID = ?";
 
+    public static String getSelectAllAnswers() {
+        return selectAllAnswers;
+    }
+
+    
     public static String getSelectAnswer() {
         return selectAnswer;
     }

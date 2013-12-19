@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import file.GameFile;
 import model.Answer;
+import model.Consequence;
+import model.Question;
 import model.QuestionAnswerConsequence;
 import utility.DatabaseConnection;
 import utility.Queries;
@@ -36,6 +38,7 @@ public class QuestionAnswerConsequenceImpl {
      *
      * @param fileName
      */
+    /*
     public QuestionAnswerConsequenceImpl(String questionFileName, String consequenceFileName) throws FileNotFoundException, IOException, SQLException {
         //super(questionFileName);
         //cons = new GameFile(consequenceFileName);
@@ -43,16 +46,21 @@ public class QuestionAnswerConsequenceImpl {
         
     }
     
-    public boolean getNextRandomQuestion(int positionInGame){        
-        if(positionInGame < 1){
+    
+    
+    public boolean getNextRandomQAC(int level){        
+        if(level > 0){
             return false;
         }//if(positionInGame < 1){        
+        
         return true;
     }
+    * 
+    * */ 
     
     public void addQAC(QuestionAnswerConsequence qac) throws SQLException, IllegalArgumentException{
         if(qac != null){
-            addQAC(qac.getLevelID(),qac.getQuestion(),qac.getAnswer(),qac.getConsequence(),qac.getConsequenceValue());
+            addQAC(qac.getLevelID(),qac.getQuestion().getQuestion(),qac.getAnswer().getAnswer(),qac.getConsequence().getConsequence(),qac.getConsequence().getConsequenceValue());
         }else{
             throw new IllegalArgumentException("Class:QuestionAnswerConsequenceImpl Method:addQAC(QuestionAnswerConsequence); QAC Argument is null!");
         }
@@ -60,13 +68,17 @@ public class QuestionAnswerConsequenceImpl {
     
     
     public QuestionAnswerConsequence getQAC(int qacID) throws SQLException{
-        QuestionAnswerConsequence qac = new QuestionAnswerConsequence();
+        QuestionAnswerConsequence qac = new QuestionAnswerConsequence();        
         PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getSelectQAC());                
         s.setInt(1, qacID);     
         ResultSet rs =  s.executeQuery();
         
         while(rs.next()){
-            //qac.set
+            qac.setQACID(rs.getInt("QACID"));
+            
+            qac.setQuestion(this.getQuestion(rs.getInt("QUESTIONID")));
+            qac.setAnswer(this.getAnswer(rs.getInt("ANSWERID")));
+            qac.setConsequence(this.getConsequence(rs.getInt("CONSEQUENCEID")));            
         }
         s.close();
         return null;
@@ -74,6 +86,7 @@ public class QuestionAnswerConsequenceImpl {
     
     private void addQAC(int level, String question, String answer, String consequence, int consequenceID) throws SQLException, IllegalArgumentException{
         int ques, ans, con, consID;
+        
         ques = addQuestion(question);        
         
         ans = addAnswer(answer,ques);        
@@ -119,20 +132,76 @@ public class QuestionAnswerConsequenceImpl {
         
     }
     
-    
-    public String getAnswer(int answerID) throws SQLException, IllegalArgumentException{
-        String answer = null;
-        
-        return answer;
+    private Question getQuestion(int questionID)throws SQLException, IllegalArgumentException{
+        Question ques = new Question();
+        String strRet = null;
+        PreparedStatement s1 = DatabaseConnection.getConnection().prepareStatement(Queries.getSelectQuestion());
+        s1.setInt(1, questionID);
+        ResultSet rs =  s1.executeQuery();
+        while(rs.next()){
+            ques.setQuestionID(questionID);
+            ques.setQuestion(rs.getString("QUESTION"));
+        }
+        return ques;
     }
     
-    public int addAnwer(Answer answer)throws SQLException, IllegalArgumentException{
+    private Consequence getConsequence(int consequenceID)throws SQLException, IllegalArgumentException{
+        Consequence con = new Consequence();
+        int tQuestionID;
+        String tQuestion = null;
+        
+        PreparedStatement s1 = DatabaseConnection.getConnection().prepareStatement(Queries.getSelectConsequence());
+        s1.setInt(1, consequenceID);
+        ResultSet rs =  s1.executeQuery();
+        while(rs.next()){
+            //con.setAnswerID(answerID);
+            con.setConsequenceID(consequenceID);
+            con.setConsequence(rs.getString("CONSEQUENCE"));
+            con.setConsequenceValue(rs.getInt("CONSEQUENCEVALUE"));
+            
+        }
+        rs.close();
+        s1.close();
+        
+        return con;
+    }
+    
+    
+    private Answer getAnswer(int answerID) throws SQLException, IllegalArgumentException{
+        Answer ans = new Answer();
+        int tQuestionID;
+        String tQuestion = null;
+        
+        PreparedStatement s1 = DatabaseConnection.getConnection().prepareStatement(Queries.getSelectAnswer());
+        s1.setInt(1, answerID);
+        ResultSet rs =  s1.executeQuery();
+        while(rs.next()){
+            ans.setAnswerID(answerID);
+            ans.setAnswer(rs.getString("ANSWER"));
+            tQuestionID = rs.getInt("QUESSTIONID");                               
+            ans.setQuestionID(tQuestionID);            
+        }
+        rs.close();
+        s1.close();
+        
+        
+        return ans;
+    }
+    
+    private ArrayList <Answer> getAnswersForQuestion(int questionID) throws SQLException, IllegalArgumentException{
+        
+        return null;
+    }
+    
+    //private String getAnswer(int answerID) throws SQLException, IllegalArgumentException{
+    
+    private int addAnwer(Answer answer)throws SQLException, IllegalArgumentException{
         int retval = -1;
         addAnswer(answer.getAnswer(), answer.getQuestionID());
         return retval;
     }
     
-    public int addAnswer(String answer, int question) throws SQLException, IllegalArgumentException{
+    private int addAnswer(String answer, int question) throws SQLException, IllegalArgumentException{
       int retval = -1;
       
       if(answer!= null && !answer.isEmpty()){
