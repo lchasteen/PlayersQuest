@@ -105,6 +105,7 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
            qp.setHealth(rs.getInt("HEALTH"));
            qp.setResources(rs.getInt("RESOURCES"));
            qp.setAmountOfGold(rs.getInt("GOLD"));
+           qp.setLevel(rs.getInt("LEVELID"));
            al.add(qp);
        }
       
@@ -143,6 +144,7 @@ public class QuestPlayerTypeImpl extends QuestPlayerImpl{
             qp.setHealth(rs.getInt("HEALTH"));
             qp.setResources(rs.getInt("RESOURCES"));
             qp.setAmountOfGold(rs.getInt("GOLD"));
+            qp.setLevel(rs.getInt("LEVELID"));
         }
         
         return qp;

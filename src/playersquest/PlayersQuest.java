@@ -9,6 +9,7 @@ import file.GameFile;
 import impl.QuestionAnswerConsequenceImpl;
 import impl.QuestPlayerImpl;
 import eventhandler.QuestListener;
+import game.Quiz;
 import impl.QuestLevelImpl;
 import impl.QuestPlayerTypeImpl;
 import java.io.BufferedReader;
@@ -21,11 +22,15 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Answer;
+import model.Player;
 import model.QuestPlayer;
+import model.Question;
 import utility.DatabaseConnection;
 import utility.Queries;
 import utility.QuestConfiguration;
@@ -200,11 +205,19 @@ public class PlayersQuest {
               
               qaci.createTables();           
               
-              qaci.populateQuestionAnswerTables();
-              qaci.populateAnswerTable();
+              //qaci.populateQuestionAnswerTables();
+              //qaci.populateAnswerTable();
               
-              DatabaseConnection.closeConnection();
-            /*
+              Quiz quiz = new Quiz(qp.get(0));
+              
+              Quiz quiz1 = new Quiz(qp.get(1));
+              
+              //System.out.println(quiz.getNextRandomQuestion());
+              //System.out.println(quiz1.getNextRandomQuestion());
+              //quiz.getNextQuestion();
+              
+              
+            
             inStream = new BufferedReader(new InputStreamReader(System.in));
             //Scanner inStream = new Scanner(System.in);
             //String  ans;            
@@ -215,8 +228,8 @@ public class PlayersQuest {
             int numOfPlayers = 0, playerType = 1;
             int playerTracker = 1;
             
-            pc = new PlayersQuest(qh);
-            */
+            //pc = new PlayersQuest(qh);
+            
             System.out.println("**************************************************************");
             System.out.println( "                  PLAYERS QUEST");
             System.out.println("**************************************************************");
@@ -224,7 +237,8 @@ public class PlayersQuest {
             System.out.println("this quest. If you survive, then you will join the proud");
             System.out.println("few that have finished this quest and lived to tell the tale!\n");
             
-           /* 
+           
+            /*
             while(true){
                 try{
                     System.out.print("Enter you name or end to finish:");
@@ -241,8 +255,9 @@ public class PlayersQuest {
                     continue;
                 }
             }
+            */ 
             
-            if(numOfPlayers > 0 ){
+            //if(numOfPlayers > 0 ){
                 System.out.println("Are you ready to begin!?");           
                 System.out.println("Let's go!\n");
 
@@ -251,12 +266,26 @@ public class PlayersQuest {
                     try{                    
                         //System.out.print(qxx.getQuestion() + " ");
 
+                        /*
                         if(playerTracker > numOfPlayers){
                             playerTracker = 1;
                         }
-                        if(!pc.getPlayer(playerTracker).skipTurn()){//&& !pc.getPlayer(playerTracker).hasNext()){
+                        */ 
+                        //if(!pc.getPlayer(playerTracker).skipTurn()){//&& !pc.getPlayer(playerTracker).hasNext()){
                             System.out.println();
-                            pc.getPlayer(playerTracker).getQuestion();
+                            //pc.getPlayer(playerTracker).getQuestion();
+                            //System.out.println("QUESTION");
+                            Question tques = quiz.getNextRandomQuestion();
+                            System.out.println(tques.getQuestion());
+                            ArrayList <Answer> al = quiz.getMultipleChoiceAnswers();
+                            
+                            ListIterator li = al.listIterator();
+                            int i = 1;
+                            while(li.hasNext()){                                 
+                                Answer ta = (Answer) li.next();
+                                System.out.println(String.valueOf(i++) + ") " + ta.getAnswer());
+                            }
+                            System.out.print("Enter your selection or 'EXIT' to quit: ");
                             String ans = inStream.readLine();                            
                             //ans = inStream.nextLine();
                             // If the user entered exit then end.
@@ -265,21 +294,21 @@ public class PlayersQuest {
                             }
                             // If the user keys "stat" then show his player status.
                             if(ans.equalsIgnoreCase("stat")){
-                                pc.getPlayer(playerTracker).getStats();
+                                //pc.getPlayer(playerTracker).getStats();
                                 //pc.getPlayer(playerTracker).getQuestion();
                                 continue;
                                 //ans = inStream.readLine();
                             }                    
-                            pc.getPlayer(playerTracker).setResponse(ans);
+                            //pc.getPlayer(playerTracker).setResponse(ans);
                             
-                            if(!pc.getPlayer(playerTracker).getNextQuestion()){
-                               break;
-                            }//if(!pc.getPlayer(playerTracker).getNextQuestion()){
-                        }//if(!pc.getPlayer(playerTracker).skipTurn()){
+                            //if(!pc.getPlayer(playerTracker).getNextQuestion()){
+                            //   break;
+                            //}//if(!pc.getPlayer(playerTracker).getNextQuestion()){
+                        //}//if(!pc.getPlayer(playerTracker).skipTurn()){
 
                         
 
-                        playerTracker++;
+                        //playerTracker++;
                     }catch(Exception e){                   
                        e.printStackTrace();
                        //continue;                    
@@ -287,9 +316,9 @@ public class PlayersQuest {
                     }//catch                    
                 }// while
                 
-            }
-            inStream.close();
-            */ 
+            //}
+            //inStream.close();
+            
             /*
             System.out.println(pc.getNextConsequence(1));
             System.out.println(pc.getNextConsequence(1));
@@ -302,7 +331,7 @@ public class PlayersQuest {
             System.out.println(pc.getNextConsequence(3));
             */
             //pc.endGame();
-            
+            DatabaseConnection.closeConnection();
         }catch (Exception e){
            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0); 

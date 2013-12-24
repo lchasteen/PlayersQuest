@@ -19,6 +19,7 @@ import model.QuestionAnswerConsequence;
 import utility.DatabaseConnection;
 import utility.Queries;
 import utility.QuestConfiguration;
+import utility.SimpleLog;
 
 
 /**
@@ -81,7 +82,7 @@ public class QuestionAnswerConsequenceImpl {
             qac.setConsequence(this.getConsequence(rs.getInt("CONSEQUENCEID")));            
         }
         s.close();
-        return null;
+        return qac;
     }
     
     private void addQAC(int level, String question, String answer, String consequence, int consequenceID) throws SQLException, IllegalArgumentException{
@@ -139,7 +140,7 @@ public class QuestionAnswerConsequenceImpl {
         s1.setInt(1, questionID);
         ResultSet rs =  s1.executeQuery();
         while(rs.next()){
-            ques.setQuestionID(questionID);
+            ques.setQuestionID(rs.getInt("QUESTIONID"));
             ques.setQuestion(rs.getString("QUESTION"));
         }
         return ques;
@@ -155,7 +156,7 @@ public class QuestionAnswerConsequenceImpl {
         ResultSet rs =  s1.executeQuery();
         while(rs.next()){
             //con.setAnswerID(answerID);
-            con.setConsequenceID(consequenceID);
+            con.setConsequenceID(rs.getInt("CONSEQUENCEID"));
             con.setConsequence(rs.getString("CONSEQUENCE"));
             con.setConsequenceValue(rs.getInt("CONSEQUENCEVALUE"));
             
@@ -176,21 +177,52 @@ public class QuestionAnswerConsequenceImpl {
         s1.setInt(1, answerID);
         ResultSet rs =  s1.executeQuery();
         while(rs.next()){
-            ans.setAnswerID(answerID);
+            ans.setAnswerID(rs.getInt("ANSWERID"));
             ans.setAnswer(rs.getString("ANSWER"));
-            tQuestionID = rs.getInt("QUESSTIONID");                               
+            tQuestionID = rs.getInt("QUESTIONID");                               
             ans.setQuestionID(tQuestionID);            
         }
         rs.close();
         s1.close();
         
         
-        return ans;
+        return ans;    
     }
     
-    private ArrayList <Answer> getAnswersForQuestion(int questionID) throws SQLException, IllegalArgumentException{
+    public ArrayList <Question> getQuestionsForLevel(int level) throws SQLException{
         
-        return null;
+        ArrayList <Question> qlist = new <Question> ArrayList();
+        
+        
+        PreparedStatement s1 = DatabaseConnection.getConnection().prepareStatement(Queries.getSelectQuestionsForLevel());
+        s1.setInt(1, level);
+        ResultSet rs =  s1.executeQuery();
+        while(rs.next()){            
+            Question q = getQuestion(rs.getInt("QUESTIONID"));
+            qlist.add(q);
+        }
+        
+        return qlist;
+        
+        
+    }
+    
+    public ArrayList <Answer> getAnswersForQuestion(int questionID) throws SQLException, IllegalArgumentException{
+        int tQuestionID;
+        ArrayList <Answer> ansList = new <Answer> ArrayList();
+        
+        PreparedStatement s1 = DatabaseConnection.getConnection().prepareStatement(Queries.getSelectAllAnswers());
+        s1.setInt(1, questionID);
+        ResultSet rs =  s1.executeQuery();
+         while(rs.next()){
+            Answer ans = new Answer();
+            ans.setAnswerID(rs.getInt("ANSWERID"));
+            ans.setAnswer(rs.getString("ANSWER"));
+            tQuestionID = rs.getInt("QUESTIONID");                               
+            ans.setQuestionID(tQuestionID);
+            ansList.add(ans);
+        }
+        return ansList;
     }
     
     //private String getAnswer(int answerID) throws SQLException, IllegalArgumentException{
@@ -253,75 +285,71 @@ public class QuestionAnswerConsequenceImpl {
     }
     
     
-    public void createTables() throws SQLException{
+    public void createTables() throws SQLException, FileNotFoundException, IOException{
         
-        PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getCreateQuestionTable());        
-        PreparedStatement s1 = DatabaseConnection.getConnection().prepareStatement(Queries.getCreateAnswerTable());
-        PreparedStatement s2 = DatabaseConnection.getConnection().prepareStatement(Queries.getCreateConsequenceTable());
-        PreparedStatement s3 = DatabaseConnection.getConnection().prepareStatement(Queries.getCreateQuestionAnswerConsequenceTable());
+        PreparedStatement ep = DatabaseConnection.getConnection().prepareStatement(Queries.getSelectTableExists());        
         
-        s.execute();
-        s1.execute();
-        s2.execute();
-        s3.execute();
+        // Check to see if the QUESTION table exist.
+        ep.setString(1, "QUESTION");
+        ResultSet rs = ep.executeQuery();
         
-        s.close();
-        s1.close();
-        s2.close();
-        s3.close();
+        if(! rs.isBeforeFirst()){
+            System.out.println("Create Tables");
+            PreparedStatement s = DatabaseConnection.getConnection().prepareStatement(Queries.getCreateQuestionTable());            
+            PreparedStatement s1 = DatabaseConnection.getConnection().prepareStatement(Queries.getCreateAnswerTable());
+            PreparedStatement s2 = DatabaseConnection.getConnection().prepareStatement(Queries.getCreateConsequenceTable());
+            PreparedStatement s3 = DatabaseConnection.getConnection().prepareStatement(Queries.getCreateQuestionAnswerConsequenceTable());
+            
+            // Create Question Table
+            s.execute(); 
+            SimpleLog.setMsg(Queries.getCreateQuestionTable());            
+            // Create Answer Table
+            s1.execute(); 
+            SimpleLog.setMsg(Queries.getCreateAnswerTable());
+            // Create Consequence Table
+            s2.execute(); 
+            SimpleLog.setMsg(Queries.getCreateConsequenceTable());
+            // Create QAC Table
+            s3.execute(); 
+            SimpleLog.setMsg(Queries.getCreateQuestionAnswerConsequenceTable());
+            // Populate 
+            this.populateQuestionAnswerTables();
+            this.populateAnswerTable();
+            
+            SimpleLog.setMsg("populated QAC tables");
+            SimpleLog.setMsg("populated Answer tables");
+            
+            s.close();
+            s1.close();
+            s2.close();
+            s3.close();
+        }
+        
+        rs.close();
+        ep.close();
+        
+        
+        
     }
     
-    public void populateQuestionAnswerTables() throws SQLException, FileNotFoundException, IOException {
+    private void populateQuestionAnswerTables() throws SQLException, FileNotFoundException, IOException {
         GameFile gf = new GameFile(QuestConfiguration.getQuestionsFile());
-        //gf.
+        
         while(gf.hasNext()){    
             this.addQAC(gf.getNextQuestionAnswerConsequence());            
         }
     }
     
     
-    public void populateAnswerTable() throws SQLException, FileNotFoundException, IOException {
+    private void populateAnswerTable() throws SQLException, FileNotFoundException, IOException {
         AnswerFile af = new AnswerFile(QuestConfiguration.getAnswerFile());
-        //gf.
+        
         while(af.hasNext()){    
             this.addAnwer(af.getNextAnswer());            
         }
     }
 
   
-    /*
-    public boolean getNextQuestion()throws IndexOutOfBoundsException, IllegalArgumentException{
-        String getOnlyQuestion[];
-        String rawData;
-        
-        // Reset these class variables
-        thisPosition = "";
-        thisQuestion = "";
-        thisAnswer = "";
-        thisConsequence = "";
-        thisConsequenceValue = 0;
-        
-        rawData = this.getNextGameData();
-        if(rawData == null){
-            return false;
-        }//if(rawData == null){
-        
-        // Split up the raw data return string into the game position,
-        // question, and the answer.
-        getOnlyQuestion = rawData.split(";");
-        if(getOnlyQuestion != null && getOnlyQuestion.length > 2){
-            thisPosition = getOnlyQuestion[0].trim();
-            thisQuestion = getOnlyQuestion[1].trim();
-            thisAnswer = getOnlyQuestion[2].trim();
-            this.questionNumber++;
-            if(!getConsequenceForQuestion(getPosition())){
-                throw new IllegalArgumentException("Method:= getNextQuestion, error getting consequence! POS:=" + this.thisPosition);
-            }
-        }//if(getOnlyQuestion != null && getOnlyQuestion.length > 2)                
-        return true;        
-    }
-    */
-   
     
     
     

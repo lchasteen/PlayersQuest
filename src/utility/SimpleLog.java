@@ -41,6 +41,16 @@ public class SimpleLog {
     
   }
   
+  
+  public static void setMsg( String message ) {
+    
+    // We also have to set our logger to log finer-grained
+    // messages    
+    //theLogger.log(Level.INFO,message);
+    System.err.println(message);  
+    
+  }
+  
   public static void setError (Exception exception){
     // We also have to set our logger to log finer-grained
     // messages    

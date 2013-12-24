@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
-<record>
-  <date>2013-11-05T17:08:14</date>
-  <millis>1383689294221</millis>
-  <sequence>0</sequence>
-  <logger>utility.SimpleLog</logger>
-  <level>FINE</level>
-  <class>utility.SimpleLog</class>
-  <method>setError</method>
-  <thread>10</thread>
-  <message>Supper FREAK</message>
-</record>
 </log>
