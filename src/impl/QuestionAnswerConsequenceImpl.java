@@ -189,16 +189,16 @@ public class QuestionAnswerConsequenceImpl {
         return ans;    
     }
     
-    public ArrayList <Question> getQuestionsForLevel(int level) throws SQLException{
+    public ArrayList <QuestionAnswerConsequence> getQuestionsForLevel(int level) throws SQLException{
         
-        ArrayList <Question> qlist = new <Question> ArrayList();
+        ArrayList <QuestionAnswerConsequence> qlist = new <QuestionAnswerConsequence> ArrayList();
         
         
         PreparedStatement s1 = DatabaseConnection.getConnection().prepareStatement(Queries.getSelectQuestionsForLevel());
         s1.setInt(1, level);
         ResultSet rs =  s1.executeQuery();
         while(rs.next()){            
-            Question q = getQuestion(rs.getInt("QUESTIONID"));
+            QuestionAnswerConsequence q = getQAC(rs.getInt("QUESTIONID"));
             qlist.add(q);
         }
         

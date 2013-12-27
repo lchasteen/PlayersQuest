@@ -298,7 +298,22 @@ public class PlayersQuest {
                                 //pc.getPlayer(playerTracker).getQuestion();
                                 continue;
                                 //ans = inStream.readLine();
-                            }                    
+                            } 
+                            
+                            try{
+                                int st = Integer.parseInt(ans);
+                                st -= 1;
+                                if(st < al.size()){
+                                    if(quiz.validateAnswer(al.get(st))){
+                                        System.out.println("Correct!");
+                                    }else{
+                                        System.out.println("WRONG!!! " + quiz.getConsequence().getConsequence());
+                                    }
+                                }
+                                    
+                            }catch (NumberFormatException nfe){
+                                
+                            }
                             //pc.getPlayer(playerTracker).setResponse(ans);
                             
                             //if(!pc.getPlayer(playerTracker).getNextQuestion()){

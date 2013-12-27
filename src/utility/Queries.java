@@ -84,7 +84,7 @@ public class Queries {
     private static final String selectConsequence = "SELECT CONSEQUENCEID, CONSEQUENCE, CONSEQUENCEVALUE FROM CONSEQUENCE WHERE CONSEQUENCEID = ?";
     private static final String insertConsequence = "INSERT INTO CONSEQUENCE (CONSEQUENCE, CONSEQUENCEVALUE) VALUES (?,?)";
     private static final String insertQAC = "INSERT INTO QAC (LEVELID, QUESTIONID, CONSEQUENCEID, ANSWERID) VALUES (?,?,?,?)";
-    private static final String selectQAC = "SELECT QUESTIONID FROM QAC WHERE QACID = ?";
+    private static final String selectQAC = "SELECT QACID, ANSWERID, QUESTIONID, CONSEQUENCEID, LEVELID FROM QAC WHERE QACID = ?";
     private static final String selectQuestionsForLevel = "SELECT QACID, LEVELID, QUESTIONID, CONSEQUENCEID, ANSWERID FROM QAC WHERE LEVELID = ?";
     
     private static final String insertLevel = "INSERT INTO LEVEL (LEVEL, LEVEL_VALUE) VALUES (?,?)";    
