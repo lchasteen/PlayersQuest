@@ -11,7 +11,6 @@ import impl.QuestPlayerImpl;
 import eventhandler.QuestListener;
 import game.Quiz;
 import impl.QuestLevelImpl;
-import impl.QuestPlayerTypeImpl;
 import java.io.BufferedReader;
 import java.io.Console;
 import java.io.FileNotFoundException;
@@ -183,22 +182,27 @@ public class PlayersQuest {
            }
             
               
-              QuestPlayerTypeImpl qpl = new QuestPlayerTypeImpl();
-              qpl.createPlayerTypeTable();
-              
+              //QuestPlayerTypeImpl qpl = new QuestPlayerTypeImpl();
+              //qpl.createPlayerTypeTable();
+              QuestPlayerImpl qlp = new QuestPlayerImpl();
               QuestLevelImpl qli = new QuestLevelImpl();
+              qli.createPlayerTypeTable();
               qli.createLevelTable();
               
+              
+              
               //QuestPlayerImpl qpi = new QuestPlayerImpl("billy bob",10,1);
-              qpl.addNewPlayer("billy bob",10,1);
-              qpl.addPlayerTypeDescription("carl lewis", 2, "Super Freak");
+              qlp.addNewPlayer("billy bob",10,1);
+              qlp.addNewPlayer("carl lewis", 11, 2);
               
               //qpl.getPlayer(1).toString();
-              ArrayList <QuestPlayer> qp = qpl.getAllPlayers();
-              Iterator it = qp.iterator();
+              ArrayList <QuestPlayer> qp = qlp.getAllPlayers();
+              Iterator<QuestPlayer> it = qp.iterator();
               
               while(it.hasNext()){
-                  System.out.println((QuestPlayer) it.next());
+                  //System.out.println((QuestPlayer) it.next());
+                  QuestPlayer ppp = it.next();
+                  System.out.println(ppp.toString());
               }
               
               QuestionAnswerConsequenceImpl qaci = new QuestionAnswerConsequenceImpl();
@@ -314,13 +318,7 @@ public class PlayersQuest {
                             }catch (NumberFormatException nfe){
                                 
                             }
-                            //pc.getPlayer(playerTracker).setResponse(ans);
-                            
-                            //if(!pc.getPlayer(playerTracker).getNextQuestion()){
-                            //   break;
-                            //}//if(!pc.getPlayer(playerTracker).getNextQuestion()){
-                        //}//if(!pc.getPlayer(playerTracker).skipTurn()){
-
+            
                         
 
                         //playerTracker++;
@@ -331,21 +329,7 @@ public class PlayersQuest {
                     }//catch                    
                 }// while
                 
-            //}
-            //inStream.close();
             
-            /*
-            System.out.println(pc.getNextConsequence(1));
-            System.out.println(pc.getNextConsequence(1));
-            System.out.println(pc.getNextConsequence(1));
-            System.out.println(pc.getNextConsequence(2));
-            System.out.println(pc.getNextConsequence(2));
-            System.out.println(pc.getNextConsequence(2));
-            System.out.println(pc.getNextConsequence(3));
-            System.out.println(pc.getNextConsequence(3));
-            System.out.println(pc.getNextConsequence(3));
-            */
-            //pc.endGame();
             DatabaseConnection.closeConnection();
         }catch (Exception e){
            System.err.println( e.getClass().getName() + ": " + e.getMessage() );

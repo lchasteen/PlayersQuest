@@ -27,6 +27,8 @@ public class PlayerType extends Player {
     public void setType(int Type) {
         this.Type = Type;
     }
+   
     
+
     
 }
