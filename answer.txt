@@ -4,3 +4,69 @@
 2;55
 2;59
 2;60
+3;1952
+3;1863
+3;1937
+4;1499
+4;1462
+4;1323
+5;1718
+5;1747
+5;1621
+6;Switzerland
+6;Donkeylatva
+6;Perland
+7;Florida
+7;Athens
+7;Lawrenceville
+8;1
+8;2
+8;4
+9;76
+9;84
+9;82
+10;33
+10;45
+10;49
+11;1492
+11;1775
+11;1785
+12;Egypt
+12;Florence
+12;Poopypants
+13;KittyFalcon
+13;HawkyCat
+13;RatHawk
+14;Martin Van Buren
+14;John Adams
+14;Winky Bear
+15;1866
+15;1895
+15;1452
+16;1861
+16;1899
+16;1800
+17;Don't Tell a Lie Link
+17;Honest Lincoln
+17;Poopey Pants Abe
+18;(706) 201-0909
+18;(706) 867-5309
+18;(706) 555-1212
+19;Morris Pancakes
+19;Morris Dots and Dashes
+19;Morris Clicks
+20;100
+20;122
+20;112
+21;22
+21;1000
+21;26
+22;33
+22;38
+22;21
+23;18
+23;21
+23;66
+24;Seakrait
+24;Cyprus
+24;Corsica

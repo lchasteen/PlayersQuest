@@ -1,7 +1,7 @@
 1;What is 21 + 17?;38;You are attacked by bandits from the Nothern Province. You loose your next turn.;404
 1;What is 8 x 7?;56;You are robbed at night and loose 100 gold coins.;200
 1;What year did Hitler Invade Poland[yyyy]?;1939;You are robbed at night and loose 10 gold coins.;110
-1;What year did Christopher Columbus set sail from Spain to Discover America?;1492;You are robbed at night and loose 20 gold coins.;120
+1;What year did Christopher Columbus set sail from Spain to America?;1492;You are robbed at night and loose 20 gold coins.;120
 1;In what year did the Revolutionary War begin?;1775;You are attacked by Omegloids. You are hurt and must heal yourself.;204
 1;What country did Germany, under the control of Adolph Hitler, first invade?;Poland;You are attacked by looters and loose 15 gold coins.;115
 1;What is the capital of Georgia?;Atlanta;You are attacked by looters and loose 5 gold coins.;105
@@ -12,9 +12,10 @@
 2;What is the capital of Italy?;Rome;Your ship is attacked by the Red Pirates of the Great Green Sea. You are wounded.;202
 2;Where did the Wright Brothers peform the first powered flight[City]?;Kitty Hawk;Your ship is stuck in the dolldrums. You loose your next turn.;404
 2;What is the name of the name of the first president of the United States?;George Washington;A terrible storm damages your ship. You must stop for repairs. You loose your next turn.;404
-2;When did the United States Civil War begin and end[yyyy-yyyy]?;1861-1865;A giant squid attacks your ship. You loose four men.;304
+2;When did the United States Civil War begin [yyyy]?;1861;A giant squid attacks your ship. You loose four men.;304
+2;When did the United States Civil War end [yyy]?;1865;A giant sword fish jumps up and attacks your ship. You loose four men.;304
 3;What was Abraham Lincoln's nickname as a boy?;Honest Abe;You are attacked by the Black Bog Monster. You loose four men.;304
-3;What is mom's phone number?;7062012973;Your men are attacked by evil trees. You loose two mighty warriors.;302
+3;What is mom's phone number?;(706) 201-2973;Your men are attacked by evil trees. You loose two mighty warriors.;302
 3;What did Samuel Morris create?;Morris Code;You are clawed by a Giant Flying Secreete, and you must rest to regain your strength. You loose your next turn.;404
 3;What is 182 - 57?;125;You are attacked by twin giants who kill two of your mighty warriors.;302
 3;What is 5 X 5?;25;Your men get trapped in the Marsh of Doom. You loose your next turn.;404
