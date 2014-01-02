@@ -114,6 +114,7 @@ public class QuestPlayerImpl {
            qp.setAmountOfGold(rs.getInt("GOLD"));
            qp.setLevel(rs.getInt("LEVELID"));
            al.add(qp);
+           System.out.println(qp.toString());
        }
       
        rs.close();
