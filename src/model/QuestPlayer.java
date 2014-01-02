@@ -177,7 +177,7 @@ public class QuestPlayer extends PlayerType{
         retString += "Level:["+ this.getLevel()+"] ";
         retString += "Type:["+this.getType()+"] ";
         retString += this.getStats();
-        return null;
+        return retString;
         
     }
 }
