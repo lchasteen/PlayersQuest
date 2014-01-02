@@ -280,46 +280,49 @@ public class PlayersQuest {
                             //pc.getPlayer(playerTracker).getQuestion();
                             //System.out.println("QUESTION");
                             Question tques = quiz.getNextRandomQuestion();
-                            System.out.println(tques.getQuestion());
-                            ArrayList <Answer> al = quiz.getMultipleChoiceAnswers();
-                            
-                            ListIterator li = al.listIterator();
-                            int i = 1;
-                            while(li.hasNext()){                                 
-                                Answer ta = (Answer) li.next();
-                                System.out.println(String.valueOf(i++) + ") " + ta.getAnswer());
-                            }
-                            System.out.print("Enter your selection or 'EXIT' to quit: ");
-                            String ans = inStream.readLine();                            
-                            //ans = inStream.nextLine();
-                            // If the user entered exit then end.
-                            if(ans.equalsIgnoreCase("exit")){                        
-                                break;
-                            }
-                            // If the user keys "stat" then show his player status.
-                            if(ans.equalsIgnoreCase("stat")){
-                                //pc.getPlayer(playerTracker).getStats();
-                                //pc.getPlayer(playerTracker).getQuestion();
-                                continue;
-                                //ans = inStream.readLine();
-                            } 
-                            
-                            try{
-                                int st = Integer.parseInt(ans);
-                                st -= 1;
-                                if(st < al.size()){
-                                    if(quiz.validateAnswer(al.get(st))){
-                                        System.out.println("Correct!");
-                                    }else{
-                                        System.out.println("WRONG!!! " + quiz.getConsequence().getConsequence());
-                                    }
+                            if(tques != null){
+                                System.out.println(tques.getQuestion());
+                                ArrayList <Answer> al = quiz.getMultipleChoiceAnswers();
+
+                                ListIterator li = al.listIterator();
+                                int i = 1;
+                                while(li.hasNext()){                                 
+                                    Answer ta = (Answer) li.next();
+                                    System.out.println(String.valueOf(i++) + ") " + ta.getAnswer());
                                 }
-                                    
-                            }catch (NumberFormatException nfe){
-                                
-                            }
+                                System.out.print("Enter your selection or 'EXIT' to quit: ");    
+                                //ans = inStream.nextLine();
+                                // If the user entered exit then end.      
+                                String ans = inStream.readLine();                            
+                                if(ans.equalsIgnoreCase("exit")){                        
+                                    break;
+                                }
+                                // If the user keys "stat" then show his player status.
+                                if(ans.equalsIgnoreCase("stat")){
+                                    continue;                            
+                                } 
+                            
+                                try{
+                                    int st = Integer.parseInt(ans);
+                                    st -= 1;
+                                    if(st < al.size()){
+                                        if(quiz.validateAnswer(al.get(st))){
+                                            System.out.println("Correct!");
+                                        }else{
+                                            System.out.println("WRONG!!! " + quiz.getConsequence().getConsequence());
+                                        }
+                                    }
+
+                                }catch (NumberFormatException nfe){
+                                    System.err.println(nfe.getMessage());
+                                }
             
-                        
+                         }else{
+                            System.out.print("Game Over!");
+                            break;
+                         }                            
+                            
+                      
 
                         //playerTracker++;
                     }catch(Exception e){                   

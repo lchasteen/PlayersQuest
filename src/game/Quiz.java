@@ -60,10 +60,15 @@ public class Quiz {
         }
         
         // set the current QuestionID
-        currentQAC = qlist.get(rNum);                          
+        if(qlist.size() > rNum){
+            currentQAC = qlist.get(rNum);
+        
         
         rNum++;
+        
         return currentQAC.getQuestion();
+        }
+        return null;
     }
     
     public ArrayList <Answer> getMultipleChoiceAnswers() throws SQLException{
@@ -79,9 +84,12 @@ public class Quiz {
     }
     
     public boolean validateAnswer(Answer ans){        
-        if(ans != null){
+        if(ans != null && currentQAC != null){
             if(ans.getAnswerID() == currentQAC.getAnswer().getAnswerID() ){
-                return true;
+                if(!qlist.isEmpty()){                   
+                    qlist.remove(currentQAC);
+                    return true;
+                }                
             }
         }
         return false;
