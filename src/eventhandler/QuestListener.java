@@ -9,5 +9,6 @@ package eventhandler;
  * @author lchastee
  */
 public interface QuestListener {
+    // Added dependencies.
     public void processGameResponse(String param);
 }
